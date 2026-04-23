@@ -12,8 +12,6 @@
 <link rel="canonical" href="https://trydangit.in/">
 <link rel="icon" href="/favicon.svg" type="image/svg+xml">
 <link rel="manifest" href="/site.webmanifest">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="DANGIT">
 <meta property="og:title" content="DANGIT — Your working doc inside every AI chat">
@@ -49,74 +47,80 @@
   --paper: #FDFBF7;
   --pink: #E8194B;
   --blue: #1A3AE8;
+  --purple: #8B10C8;
   --grad: linear-gradient(120deg, #1A3AE8 0%, #8B10C8 50%, #E8194B 100%);
   --grad2: linear-gradient(120deg, #E8194B, #8B10C8, #1A3AE8);
   --border: rgba(15,14,10,0.08);
+  --nav-h: 60px;
 }
 
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-html { scroll-behavior: smooth; }
+html { scroll-behavior: smooth; font-size: 16px; }
 
 body {
   font-family: 'Plus Jakarta Sans', sans-serif;
   background: var(--bg);
   color: var(--ink);
   overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
 }
 
-/* CURSOR */
-* { cursor: none !important; }
-.cursor {
-  position: fixed;
-  width: 10px; height: 10px;
-  background: var(--pink);
-  border-radius: 50%;
-  pointer-events: none;
-  z-index: 9999;
-  transition: transform 0.15s ease, width 0.2s, height 0.2s;
-  transform: translate(-50%, -50%);
+@media (pointer: fine) {
+  * { cursor: none !important; }
+  .cursor {
+    position: fixed;
+    width: 8px; height: 8px;
+    background: var(--pink);
+    border-radius: 50%;
+    pointer-events: none;
+    z-index: 9999;
+    transform: translate(-50%,-50%);
+    transition: width .18s, height .18s, background .18s;
+    will-change: left, top;
+  }
+  .cursor.grow {
+    width: 32px; height: 32px;
+    background: transparent;
+    border: 1.5px solid var(--pink);
+    mix-blend-mode: multiply;
+  }
 }
-.cursor.big { width: 36px; height: 36px; background: transparent; border: 1.5px solid var(--pink); mix-blend-mode: multiply; }
 
-/* NAV */
 nav {
   position: fixed;
   top: 0; left: 0; right: 0;
-  z-index: 100;
-  padding: 0 48px;
-  height: 64px;
+  height: var(--nav-h);
+  z-index: 200;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  background: rgba(247,244,238,0.9);
-  backdrop-filter: blur(16px);
+  padding: 0 40px;
+  background: rgba(247,244,238,0.88);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
   border-bottom: 1px solid var(--border);
 }
 
-.nav-logo {
+.nav-brand {
   display: flex;
   align-items: center;
-  gap: 10px;
+  gap: 9px;
   text-decoration: none;
 }
 
-.nav-logo-mark {
-  width: 32px; height: 32px;
+.nav-icon {
+  width: 30px; height: 30px;
+  border-radius: 7px;
   background: var(--grad);
-  border-radius: 8px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-family: 'Fraunces', serif;
-  font-weight: 900;
-  font-size: 15px;
-  color: white;
+  display: grid;
+  place-items: center;
+  flex-shrink: 0;
 }
 
 .nav-wordmark {
   font-family: 'Fraunces', serif;
   font-weight: 900;
-  font-size: 18px;
+  font-size: 17px;
   letter-spacing: 0.04em;
   color: var(--ink);
 }
@@ -124,19 +128,21 @@ nav {
 .nav-right {
   display: flex;
   align-items: center;
-  gap: 32px;
+  gap: 28px;
 }
 
 .nav-link {
   font-size: 13px;
+  font-weight: 500;
   color: var(--muted);
   text-decoration: none;
-  transition: color 0.2s;
+  transition: color .2s;
 }
 .nav-link:hover { color: var(--ink); }
 
 .nav-btn {
-  padding: 9px 22px;
+  height: 36px;
+  padding: 0 20px;
   background: var(--ink);
   color: var(--paper);
   border: none;
@@ -145,64 +151,102 @@ nav {
   font-size: 13px;
   font-weight: 600;
   text-decoration: none;
-  transition: background 0.2s, transform 0.15s;
-  display: inline-block;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  transition: opacity .2s, transform .15s;
+  white-space: nowrap;
 }
-.nav-btn:hover { background: var(--ink2); transform: translateY(-1px); }
+.nav-btn:hover { opacity: .85; transform: translateY(-1px); }
 
-/* HERO */
 .hero {
-  padding: 140px 48px 80px;
-  max-width: 1200px;
-  margin: 0 auto;
+  height: 100dvh;
+  min-height: 580px;
+  max-height: 900px;
+  padding: var(--nav-h) 40px 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
   position: relative;
+  overflow: hidden;
 }
 
-.hero-eyebrow {
+.hero::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image:
+    linear-gradient(var(--border) 1px, transparent 1px),
+    linear-gradient(90deg, var(--border) 1px, transparent 1px);
+  background-size: 80px 80px;
+  pointer-events: none;
+  mask-image: radial-gradient(ellipse 80% 80% at 50% 50%, black 30%, transparent 100%);
+}
+
+.hero-inner {
+  max-width: 1100px;
+  margin: 0 auto;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+}
+
+.hero-badge {
   display: inline-flex;
   align-items: center;
   gap: 8px;
-  font-family: 'DM Mono', monospace;
-  font-size: 11px;
-  color: var(--muted);
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-  margin-bottom: 28px;
-  padding: 6px 14px;
+  padding: 5px 14px 5px 8px;
   border: 1px solid var(--border);
   border-radius: 100px;
   background: var(--paper);
+  width: fit-content;
 }
 
-.hero-dot {
-  width: 6px; height: 6px;
+.badge-dot {
+  width: 20px; height: 20px;
+  border-radius: 50%;
+  background: rgba(34,197,94,0.12);
+  display: grid;
+  place-items: center;
+  flex-shrink: 0;
+}
+
+.badge-dot-inner {
+  width: 7px; height: 7px;
   border-radius: 50%;
   background: #22C55E;
-  animation: blink 2s ease infinite;
+  animation: pulse 2s ease infinite;
 }
 
-@keyframes blink {
-  0%, 100% { opacity: 1; }
-  50% { opacity: 0.3; }
+@keyframes pulse {
+  0%,100% { opacity:1; transform:scale(1); }
+  50% { opacity:.5; transform:scale(.8); }
+}
+
+.badge-text {
+  font-family: 'DM Mono', monospace;
+  font-size: 11px;
+  color: var(--muted);
+  letter-spacing: .05em;
 }
 
 .hero-title {
   font-family: 'Fraunces', serif;
   font-weight: 900;
-  font-size: clamp(56px, 8vw, 108px);
-  line-height: 0.95;
-  letter-spacing: -0.03em;
+  font-size: clamp(48px, 7vw, 88px);
+  line-height: .96;
+  letter-spacing: -.03em;
   color: var(--ink);
-  margin-bottom: 8px;
 }
 
-.hero-title .italic {
-  font-style: italic;
-  font-weight: 300;
+.hero-title .grad {
   background: var(--grad);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
+  font-style: italic;
+  font-weight: 300;
 }
 
 .hero-title .outline {
@@ -210,521 +254,494 @@ nav {
   color: transparent;
 }
 
-.hero-sub-row {
+.hero-bottom {
   display: flex;
   align-items: flex-end;
   justify-content: space-between;
   gap: 40px;
-  margin-top: 40px;
-  padding-top: 32px;
+  padding-top: 24px;
   border-top: 1px solid var(--border);
 }
 
 .hero-sub {
-  font-size: clamp(16px, 2vw, 20px);
+  font-size: clamp(15px, 1.8vw, 18px);
   color: var(--muted);
   line-height: 1.65;
-  max-width: 500px;
-  font-weight: 400;
+  max-width: 480px;
 }
 
-.hero-sub strong {
-  color: var(--ink);
-  font-weight: 600;
-}
+.hero-sub strong { color: var(--ink); font-weight: 600; }
 
-.hero-actions {
+.hero-cta {
   display: flex;
   flex-direction: column;
   align-items: flex-end;
-  gap: 10px;
+  gap: 8px;
   flex-shrink: 0;
 }
 
-.btn-main {
-  display: inline-flex;
-  align-items: center;
-  gap: 10px;
-  padding: 16px 32px;
+.btn-primary {
+  height: 52px;
+  padding: 0 32px;
   background: var(--grad);
   border: none;
   border-radius: 100px;
   color: white;
   font-family: 'Plus Jakarta Sans', sans-serif;
-  font-weight: 600;
+  font-weight: 700;
   font-size: 15px;
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
   text-decoration: none;
+  transition: opacity .2s, transform .2s, box-shadow .2s;
+  box-shadow: 0 8px 32px rgba(232,25,75,.22), 0 2px 8px rgba(26,58,232,.15);
   white-space: nowrap;
-  transition: opacity 0.2s, transform 0.2s;
-  box-shadow: 0 8px 32px rgba(232,25,75,0.25);
 }
-.btn-main:hover { opacity: 0.9; transform: translateY(-2px); }
+.btn-primary:hover { opacity:.9; transform:translateY(-2px); box-shadow:0 16px 48px rgba(232,25,75,.28); }
 
 .btn-note {
-  font-size: 11px;
-  color: var(--muted2);
   font-family: 'DM Mono', monospace;
+  font-size: 10px;
+  color: var(--muted2);
+  letter-spacing: .04em;
 }
 
-/* MARQUEE */
-.marquee-wrap {
+.marquee-bar {
   background: var(--ink);
-  padding: 14px 0;
+  padding: 13px 0;
   overflow: hidden;
-  position: relative;
-  margin: 60px 0;
 }
 
 .marquee-track {
   display: flex;
-  gap: 0;
-  animation: marquee 20s linear infinite;
   width: max-content;
+  animation: scroll 24s linear infinite;
 }
 
 .marquee-item {
   display: flex;
   align-items: center;
-  gap: 24px;
-  padding: 0 32px;
+  gap: 20px;
+  padding: 0 28px;
   font-family: 'Fraunces', serif;
-  font-size: 15px;
   font-style: italic;
-  color: rgba(255,255,255,0.5);
+  font-weight: 300;
+  font-size: 14px;
+  color: rgba(255,255,255,.45);
   white-space: nowrap;
 }
 
-.marquee-item span {
-  width: 4px; height: 4px;
+.marquee-sep {
+  width: 3px; height: 3px;
   border-radius: 50%;
   background: var(--pink);
   flex-shrink: 0;
 }
 
-@keyframes marquee {
+@keyframes scroll {
   from { transform: translateX(0); }
-  to { transform: translateX(-50%); }
+  to   { transform: translateX(-50%); }
 }
 
-/* SCENARIO SECTION */
-.scenario-section {
-  max-width: 1200px;
+.section {
+  max-width: 1100px;
   margin: 0 auto;
-  padding: 0 48px 100px;
+  padding: 96px 40px;
 }
 
-.section-header {
+.section-label {
   display: flex;
-  align-items: baseline;
-  gap: 20px;
-  margin-bottom: 48px;
+  align-items: center;
+  gap: 14px;
+  margin-bottom: 40px;
 }
 
-.section-num {
+.label-num {
   font-family: 'DM Mono', monospace;
   font-size: 11px;
   color: var(--muted2);
-  letter-spacing: 0.06em;
-  padding-top: 4px;
+  letter-spacing: .06em;
+}
+
+.label-line {
+  width: 24px; height: 1px;
+  background: var(--muted2);
+}
+
+.label-text {
+  font-family: 'DM Mono', monospace;
+  font-size: 11px;
+  color: var(--muted);
+  letter-spacing: .06em;
+  text-transform: uppercase;
 }
 
 .section-title {
   font-family: 'Fraunces', serif;
   font-weight: 700;
-  font-size: clamp(28px, 4vw, 44px);
+  font-size: clamp(30px, 4vw, 48px);
   line-height: 1.1;
-  letter-spacing: -0.02em;
+  letter-spacing: -.025em;
+  margin-bottom: 48px;
 }
 
 .scenario-grid {
   display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 3px;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 2px;
   background: var(--border);
-  border-radius: 20px;
+  border-radius: 18px;
   overflow: hidden;
 }
 
 .scenario-card {
   background: var(--paper);
-  padding: 40px;
-  transition: background 0.2s;
+  padding: 36px;
+  transition: background .2s;
 }
 .scenario-card:hover { background: var(--bg2); }
 
-.scenario-card:nth-child(1) { border-radius: 17px 0 0 0; }
-.scenario-card:nth-child(2) { border-radius: 0 17px 0 0; }
-.scenario-card:nth-child(3) { border-radius: 0 0 0 17px; }
-.scenario-card:nth-child(4) { border-radius: 0 0 17px 0; }
-
-.scenario-icon {
-  font-size: 28px;
-  margin-bottom: 16px;
-  display: block;
+.sc-icon {
+  width: 40px; height: 40px;
+  border-radius: 10px;
+  background: var(--bg2);
+  display: grid;
+  place-items: center;
+  margin-bottom: 18px;
+  color: var(--ink);
+  flex-shrink: 0;
 }
 
-.scenario-title {
+.sc-title {
   font-family: 'Fraunces', serif;
   font-weight: 700;
-  font-size: 20px;
+  font-size: 19px;
   margin-bottom: 10px;
   line-height: 1.2;
 }
 
-.scenario-desc {
+.sc-desc {
   font-size: 14px;
   color: var(--muted);
   line-height: 1.75;
 }
 
-.scenario-desc em {
+.sc-desc em {
   color: var(--ink);
   font-style: normal;
-  font-weight: 500;
+  font-weight: 600;
 }
 
-/* HOW IT WORKS */
-.how-section {
+.how-wrap {
   background: var(--ink);
-  padding: 100px 48px;
   color: white;
 }
 
-.how-inner {
-  max-width: 1200px;
+.how-section {
+  max-width: 1100px;
   margin: 0 auto;
+  padding: 96px 40px;
 }
 
-.how-section .section-num { color: rgba(255,255,255,0.3); }
-.how-section .section-title { color: white; }
+.how-section .label-num { color: rgba(255,255,255,.2); }
+.how-section .label-line { background: rgba(255,255,255,.15); }
+.how-section .label-text { color: rgba(255,255,255,.35); }
+.how-section .section-title { color: white; margin-bottom: 56px; }
 
-.how-steps {
+.steps-grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  gap: 48px;
-  margin-top: 64px;
+  gap: 0;
   position: relative;
 }
 
-.how-steps::before {
-  content: '';
-  position: absolute;
-  top: 28px;
-  left: calc(16.66% + 16px);
-  right: calc(16.66% + 16px);
-  height: 1px;
-  background: linear-gradient(90deg, rgba(255,255,255,0.1), rgba(232,25,75,0.4), rgba(255,255,255,0.1));
+.step-card {
+  padding: 0 40px 0 0;
 }
 
-.how-step { position: relative; }
-
-.how-step-num {
-  width: 48px; height: 48px;
+.step-num-circle {
+  width: 46px; height: 46px;
   border-radius: 50%;
-  background: rgba(255,255,255,0.06);
-  border: 1px solid rgba(255,255,255,0.1);
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  border: 1px solid rgba(255,255,255,.1);
+  display: grid;
+  place-items: center;
   font-family: 'DM Mono', monospace;
-  font-size: 13px;
-  color: rgba(255,255,255,0.4);
-  margin-bottom: 24px;
+  font-size: 12px;
+  color: rgba(255,255,255,.3);
+  margin-bottom: 28px;
+  background: rgba(255,255,255,.04);
 }
 
-.how-step-title {
+.step-title {
   font-family: 'Fraunces', serif;
   font-weight: 700;
-  font-size: 22px;
-  margin-bottom: 12px;
+  font-size: 21px;
   color: white;
-  line-height: 1.2;
+  margin-bottom: 12px;
+  line-height: 1.25;
 }
 
-.how-step-desc {
+.step-desc {
   font-size: 14px;
-  color: rgba(255,255,255,0.45);
+  color: rgba(255,255,255,.42);
   line-height: 1.75;
 }
 
-.how-step-desc strong {
-  color: rgba(255,255,255,0.8);
-  font-weight: 500;
-}
-
-/* PRODUCT DEMO */
-.demo-section {
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 100px 48px;
-}
+.step-desc strong { color: rgba(255,255,255,.78); font-weight: 500; }
 
 .demo-window {
-  background: #13131A;
+  background: #13131C;
   border-radius: 16px;
   overflow: hidden;
-  border: 1px solid rgba(255,255,255,0.06);
-  box-shadow: 0 40px 100px rgba(0,0,0,0.15);
+  border: 1px solid rgba(255,255,255,.06);
+  box-shadow: 0 32px 80px rgba(0,0,0,.14), 0 0 0 1px rgba(0,0,0,.04);
 }
 
-.demo-titlebar {
-  background: #1C1C26;
-  padding: 14px 20px;
+.demo-bar {
+  background: #1C1C28;
+  padding: 13px 20px;
   display: flex;
   align-items: center;
-  gap: 16px;
-  border-bottom: 1px solid rgba(255,255,255,0.05);
+  gap: 14px;
+  border-bottom: 1px solid rgba(255,255,255,.05);
 }
 
-.demo-dots { display: flex; gap: 6px; }
-.demo-dot { width: 10px; height: 10px; border-radius: 50%; }
-.demo-dot-r { background: #FF5F57; }
-.demo-dot-y { background: #FFBD2E; }
-.demo-dot-g { background: #28CA41; }
+.traffic { display: flex; gap: 6px; }
+.tl { width: 10px; height: 10px; border-radius: 50%; }
+.tl-r { background: #FF5F57; }
+.tl-y { background: #FFBD2E; }
+.tl-g { background: #28CA41; }
 
 .demo-url {
   flex: 1;
   text-align: center;
   font-family: 'DM Mono', monospace;
   font-size: 11px;
-  color: rgba(255,255,255,0.3);
-  background: rgba(255,255,255,0.04);
-  padding: 5px 16px;
-  border-radius: 6px;
+  color: rgba(255,255,255,.25);
+  background: rgba(255,255,255,.04);
+  padding: 4px 16px;
+  border-radius: 5px;
 }
 
 .demo-body {
   display: grid;
-  grid-template-columns: 1fr 400px;
-  min-height: 500px;
+  grid-template-columns: 1fr 380px;
 }
 
 .demo-chat {
   padding: 32px;
-  border-right: 1px solid rgba(255,255,255,0.05);
+  border-right: 1px solid rgba(255,255,255,.05);
 }
 
-.demo-chat-title {
-  font-size: 11px;
-  font-weight: 600;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-  color: rgba(255,255,255,0.2);
-  margin-bottom: 24px;
+.chat-section-label {
   font-family: 'DM Mono', monospace;
-}
-
-.chat-bubble-wrap { margin-bottom: 20px; }
-
-.chat-bubble-role {
   font-size: 10px;
-  font-weight: 600;
-  letter-spacing: 0.08em;
+  letter-spacing: .08em;
   text-transform: uppercase;
-  margin-bottom: 6px;
+  color: rgba(255,255,255,.18);
+  margin-bottom: 24px;
+}
+
+.msg { margin-bottom: 18px; }
+
+.msg-role {
   font-family: 'DM Mono', monospace;
+  font-size: 10px;
+  font-weight: 500;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+  margin-bottom: 5px;
 }
-.chat-bubble-role.u { color: #818CF8; }
-.chat-bubble-role.a { color: #34D399; }
+.msg-role.u { color: #818CF8; }
+.msg-role.a { color: #34D399; }
 
-.chat-bubble-text {
-  font-size: 13.5px;
+.msg-text {
+  font-size: 13px;
   line-height: 1.7;
-  color: rgba(255,255,255,0.65);
-  background: rgba(255,255,255,0.04);
-  border-radius: 0 10px 10px 10px;
-  padding: 12px 16px;
-  border: 1px solid rgba(255,255,255,0.05);
+  color: rgba(255,255,255,.62);
+  background: rgba(255,255,255,.04);
+  border-radius: 0 9px 9px 9px;
+  padding: 11px 15px;
+  border: 1px solid rgba(255,255,255,.05);
 }
 
-.chat-bubble-text mark {
-  background: rgba(232,25,75,0.2);
+.msg-text mark {
+  background: rgba(232,25,75,.18);
   color: #F87171;
   border-radius: 3px;
   padding: 0 3px;
+  font-style: normal;
 }
 
-.chat-bubble-text.drift {
-  opacity: 0.4;
+.msg-text.drift {
+  opacity: .4;
   font-style: italic;
-  border-color: rgba(232,25,75,0.15);
-  background: rgba(232,25,75,0.03);
+  border-color: rgba(232,25,75,.12);
 }
 
-.drift-label {
+.drift-pill {
   display: inline-flex;
   align-items: center;
   gap: 6px;
-  font-size: 11px;
-  color: rgba(232,25,75,0.7);
-  background: rgba(232,25,75,0.08);
-  border: 1px solid rgba(232,25,75,0.15);
-  border-radius: 6px;
-  padding: 6px 12px;
-  margin-top: 12px;
   font-family: 'DM Mono', monospace;
+  font-size: 10px;
+  color: rgba(232,25,75,.7);
+  background: rgba(232,25,75,.07);
+  border: 1px solid rgba(232,25,75,.14);
+  border-radius: 6px;
+  padding: 5px 10px;
+  margin-top: 10px;
 }
 
-/* DANGIT PANEL */
-.dangit-panel {
+.d-panel {
   display: flex;
   flex-direction: column;
-  background: #0F0F18;
+  background: #0E0E18;
 }
 
-.panel-top {
-  padding: 14px 18px;
-  border-bottom: 1px solid rgba(255,255,255,0.06);
+.d-top {
+  padding: 13px 17px;
+  border-bottom: 1px solid rgba(255,255,255,.05);
   display: flex;
   align-items: center;
   justify-content: space-between;
 }
 
-.panel-logo {
+.d-logo {
   font-family: 'Fraunces', serif;
   font-weight: 900;
-  font-size: 14px;
-  letter-spacing: 0.06em;
+  font-size: 13px;
+  letter-spacing: .06em;
   background: var(--grad);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
 }
 
-.panel-badge {
-  font-size: 10px;
-  font-weight: 600;
-  padding: 2px 8px;
+.d-badge {
+  font-family: 'DM Mono', monospace;
+  font-size: 9px;
+  font-weight: 500;
+  padding: 2px 7px;
   border-radius: 20px;
   background: #1A3A2A;
   color: #4ADE80;
-  font-family: 'DM Mono', monospace;
+  letter-spacing: .04em;
 }
 
-.panel-session-title {
+.d-title {
   font-family: 'Fraunces', serif;
   font-weight: 700;
-  font-size: 15px;
-  color: rgba(255,255,255,0.85);
-  padding: 14px 18px 8px;
+  font-size: 14px;
+  color: rgba(255,255,255,.82);
+  padding: 13px 17px 8px;
 }
 
-.panel-doc {
+.d-body {
   flex: 1;
-  padding: 0 18px 12px;
+  padding: 0 17px 10px;
   overflow: hidden;
 }
 
-.doc-section-label {
-  font-size: 9px;
-  font-weight: 600;
-  letter-spacing: 0.09em;
-  text-transform: uppercase;
-  color: rgba(255,255,255,0.2);
-  padding-bottom: 6px;
-  border-bottom: 1px solid rgba(255,255,255,0.06);
-  margin-bottom: 10px;
+.d-sec {
   font-family: 'DM Mono', monospace;
+  font-size: 9px;
+  font-weight: 500;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,.18);
+  padding-bottom: 6px;
+  border-bottom: 1px solid rgba(255,255,255,.05);
+  margin-bottom: 9px;
 }
 
-.doc-saved {
-  font-size: 12px;
-  line-height: 1.7;
-  color: rgba(255,255,255,0.55);
-  background: rgba(99,102,241,0.08);
-  border-left: 2px solid #6366F1;
-  border-radius: 0 6px 6px 0;
-  padding: 8px 10px;
-  margin-bottom: 12px;
-}
-
-.doc-note {
-  font-size: 12px;
+.d-saved {
+  font-size: 11.5px;
   line-height: 1.65;
-  display: inline;
+  color: rgba(255,255,255,.5);
+  background: rgba(99,102,241,.08);
+  border-left: 2px solid #6366F1;
+  border-radius: 0 5px 5px 0;
+  padding: 7px 9px;
+  margin-bottom: 10px;
 }
 
-.doc-note-hl {
+.d-note-hl {
   background: #2D1F4E;
   color: #C4B5FD;
   border-radius: 3px;
   padding: 1px 5px;
-  font-size: 12px;
+  font-size: 11.5px;
+  display: inline-block;
+  margin-bottom: 10px;
 }
 
-.doc-task {
+.d-task {
   display: flex;
   align-items: center;
-  gap: 8px;
-  font-size: 12px;
-  color: rgba(255,255,255,0.5);
-  padding: 3px 0;
+  gap: 7px;
+  font-size: 11.5px;
+  color: rgba(255,255,255,.45);
+  padding: 2px 0;
 }
 
-.doc-check {
-  width: 13px; height: 13px;
+.d-cb {
+  width: 12px; height: 12px;
   border-radius: 3px;
-  border: 1.5px solid rgba(255,255,255,0.2);
+  border: 1.5px solid rgba(255,255,255,.18);
   flex-shrink: 0;
 }
-.doc-check.done { background: #6366F1; border-color: #6366F1; }
-.doc-task-text.done { text-decoration: line-through; color: rgba(255,255,255,0.2); }
+.d-cb.on { background: #6366F1; border-color: #6366F1; }
+.d-task-t.done { text-decoration: line-through; color: rgba(255,255,255,.2); }
 
-.panel-divider { height: 1px; background: rgba(255,255,255,0.05); margin: 8px 0; }
-
-.panel-footer {
-  padding: 12px 18px 18px;
-  border-top: 1px solid rgba(255,255,255,0.06);
+.d-footer {
+  padding: 10px 17px 16px;
+  border-top: 1px solid rgba(255,255,255,.05);
 }
 
-.panel-push-btn {
+.d-push {
   width: 100%;
-  padding: 10px;
+  padding: 9px;
   background: var(--grad);
   border: none;
-  border-radius: 8px;
+  border-radius: 7px;
   color: white;
-  font-size: 12px;
-  font-weight: 600;
   font-family: 'Plus Jakarta Sans', sans-serif;
-  margin-bottom: 8px;
+  font-size: 11px;
+  font-weight: 600;
+  margin-bottom: 7px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
 }
 
-.panel-footer-row {
+.d-footer-row {
   display: flex;
   justify-content: space-between;
 }
 
-.panel-footer-link {
-  font-size: 10px;
-  color: rgba(255,255,255,0.2);
+.d-footer-link {
   font-family: 'DM Mono', monospace;
+  font-size: 9px;
+  color: rgba(255,255,255,.18);
 }
 
-/* RESEARCH CALLOUT */
-.research-section {
+.research-wrap {
   background: var(--bg2);
   border-top: 1px solid var(--border);
   border-bottom: 1px solid var(--border);
-  padding: 80px 48px;
 }
 
 .research-inner {
-  max-width: 1200px;
+  max-width: 1100px;
   margin: 0 auto;
+  padding: 96px 40px;
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 80px;
+  gap: 72px;
   align-items: center;
-}
-
-.research-label {
-  font-family: 'DM Mono', monospace;
-  font-size: 10px;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-  color: var(--muted2);
-  margin-bottom: 16px;
 }
 
 .research-title {
@@ -732,8 +749,8 @@ nav {
   font-weight: 700;
   font-size: clamp(28px, 3.5vw, 42px);
   line-height: 1.1;
-  letter-spacing: -0.02em;
-  margin-bottom: 20px;
+  letter-spacing: -.022em;
+  margin-bottom: 18px;
 }
 
 .research-title em {
@@ -745,22 +762,22 @@ nav {
 .research-body {
   font-size: 15px;
   color: var(--muted);
-  line-height: 1.75;
+  line-height: 1.78;
 }
 
 .research-body strong { color: var(--ink); font-weight: 600; }
 
-.research-stats {
+.stat-cards {
   display: flex;
   flex-direction: column;
-  gap: 20px;
+  gap: 16px;
 }
 
 .stat-card {
   background: var(--paper);
   border: 1px solid var(--border);
   border-radius: 14px;
-  padding: 24px 28px;
+  padding: 24px 26px;
   position: relative;
   overflow: hidden;
 }
@@ -776,9 +793,9 @@ nav {
 .stat-num {
   font-family: 'Fraunces', serif;
   font-weight: 900;
-  font-size: 42px;
+  font-size: 38px;
   line-height: 1;
-  letter-spacing: -0.03em;
+  letter-spacing: -.03em;
   background: var(--grad);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
@@ -786,76 +803,80 @@ nav {
   margin-bottom: 6px;
 }
 
-.stat-label {
-  font-size: 13px;
-  color: var(--muted);
-  line-height: 1.5;
-}
-
-.stat-source {
-  font-size: 10px;
-  color: var(--muted2);
+.stat-desc { font-size: 13px; color: var(--muted); line-height: 1.55; }
+.stat-src {
   font-family: 'DM Mono', monospace;
+  font-size: 9.5px;
+  color: var(--muted2);
   margin-top: 8px;
   display: block;
 }
 
-/* WORKS ON */
-.works-section {
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 80px 48px;
-}
-
 .works-grid {
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 3px;
+  grid-template-columns: repeat(4,1fr);
+  gap: 2px;
   background: var(--border);
-  border-radius: 16px;
+  border-radius: 18px;
   overflow: hidden;
-  margin-top: 48px;
 }
 
 .works-card {
   background: var(--paper);
-  padding: 32px 28px;
+  padding: 32px 24px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
   text-align: center;
-  transition: background 0.2s;
+  gap: 14px;
+  transition: background .2s;
 }
 .works-card:hover { background: var(--bg2); }
-.works-card:first-child { border-radius: 13px 0 0 13px; }
-.works-card:last-child { border-radius: 0 13px 13px 0; }
 
-.works-emoji { font-size: 32px; display: block; margin-bottom: 12px; }
-.works-name { font-family: 'Fraunces', serif; font-weight: 700; font-size: 18px; margin-bottom: 6px; }
-.works-desc { font-size: 12px; color: var(--muted); line-height: 1.5; }
-
-/* EMAIL */
-.email-section {
-  background: var(--ink);
-  padding: 120px 48px;
-  position: relative;
-  overflow: hidden;
+.works-icon {
+  width: 48px; height: 48px;
+  border-radius: 12px;
+  background: var(--bg2);
+  display: grid;
+  place-items: center;
+  color: var(--ink);
 }
 
-.email-bg-text {
+.works-name {
+  font-family: 'Fraunces', serif;
+  font-weight: 700;
+  font-size: 17px;
+}
+
+.works-desc {
+  font-size: 12px;
+  color: var(--muted);
+  line-height: 1.5;
+}
+
+.email-wrap {
+  background: var(--ink);
+  position: relative;
+  overflow: hidden;
+  padding: 112px 40px;
+}
+
+.email-bg {
   position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
+  inset: 0;
+  display: grid;
+  place-items: center;
   font-family: 'Fraunces', serif;
   font-weight: 900;
-  font-size: 280px;
-  color: rgba(255,255,255,0.02);
-  letter-spacing: -0.05em;
-  white-space: nowrap;
+  font-size: 320px;
+  color: rgba(255,255,255,.018);
+  letter-spacing: -.05em;
   pointer-events: none;
-  line-height: 1;
+  user-select: none;
 }
 
 .email-inner {
-  max-width: 680px;
+  max-width: 620px;
   margin: 0 auto;
   text-align: center;
   position: relative;
@@ -863,19 +884,19 @@ nav {
 
 .email-pre {
   font-family: 'DM Mono', monospace;
-  font-size: 11px;
-  letter-spacing: 0.1em;
+  font-size: 10px;
+  letter-spacing: .12em;
   text-transform: uppercase;
-  color: rgba(255,255,255,0.3);
-  margin-bottom: 20px;
+  color: rgba(255,255,255,.28);
+  margin-bottom: 18px;
 }
 
 .email-title {
   font-family: 'Fraunces', serif;
   font-weight: 900;
-  font-size: clamp(44px, 6vw, 72px);
-  line-height: 1.0;
-  letter-spacing: -0.03em;
+  font-size: clamp(40px, 6vw, 68px);
+  line-height: .98;
+  letter-spacing: -.03em;
   color: white;
   margin-bottom: 16px;
 }
@@ -890,472 +911,434 @@ nav {
 }
 
 .email-sub {
-  font-size: 16px;
-  color: rgba(255,255,255,0.4);
+  font-size: 15px;
+  color: rgba(255,255,255,.38);
   line-height: 1.65;
-  margin-bottom: 48px;
+  margin-bottom: 44px;
 }
 
 .email-form {
   display: flex;
   gap: 8px;
-  max-width: 480px;
-  margin: 0 auto 16px;
+  max-width: 460px;
+  margin: 0 auto 14px;
 }
 
 .email-input {
   flex: 1;
-  padding: 15px 22px;
-  background: rgba(255,255,255,0.07);
-  border: 1px solid rgba(255,255,255,0.1);
+  height: 50px;
+  padding: 0 22px;
+  background: rgba(255,255,255,.07);
+  border: 1px solid rgba(255,255,255,.1);
   border-radius: 100px;
   color: white;
   font-family: 'Plus Jakarta Sans', sans-serif;
   font-size: 14px;
   outline: none;
-  transition: border-color 0.2s, background 0.2s;
+  transition: border-color .2s, background .2s;
+  min-width: 0;
 }
-.email-input::placeholder { color: rgba(255,255,255,0.25); }
+.email-input::placeholder { color: rgba(255,255,255,.22); }
 .email-input:focus {
-  border-color: rgba(232,25,75,0.5);
-  background: rgba(255,255,255,0.1);
+  border-color: rgba(232,25,75,.45);
+  background: rgba(255,255,255,.1);
 }
 
 .email-btn {
-  padding: 15px 28px;
+  height: 50px;
+  padding: 0 26px;
   background: var(--grad2);
   border: none;
   border-radius: 100px;
   color: white;
   font-family: 'Plus Jakarta Sans', sans-serif;
-  font-weight: 600;
+  font-weight: 700;
   font-size: 14px;
   white-space: nowrap;
-  transition: opacity 0.2s, transform 0.2s;
-  box-shadow: 0 8px 32px rgba(232,25,75,0.3);
+  transition: opacity .2s, transform .2s;
+  box-shadow: 0 8px 28px rgba(232,25,75,.28);
+  flex-shrink: 0;
 }
-.email-btn:hover { opacity: 0.88; transform: translateY(-1px); }
+.email-btn:hover { opacity:.87; transform:translateY(-1px); }
 
 .email-fine {
-  font-size: 11px;
-  color: rgba(255,255,255,0.2);
   font-family: 'DM Mono', monospace;
+  font-size: 10px;
+  color: rgba(255,255,255,.18);
 }
 
-/* FOOTER */
 footer {
-  padding: 32px 48px;
+  padding: 28px 40px;
   border-top: 1px solid var(--border);
+  background: var(--bg);
   display: flex;
   align-items: center;
   justify-content: space-between;
-  background: var(--bg);
+  gap: 20px;
+  flex-wrap: wrap;
 }
 
-.footer-left {
-  display: flex;
-  align-items: center;
-  gap: 16px;
-}
-
-.footer-logo {
+.footer-brand {
   font-family: 'Fraunces', serif;
   font-weight: 900;
-  font-size: 16px;
-  letter-spacing: 0.04em;
+  font-size: 15px;
+  letter-spacing: .04em;
   color: var(--ink);
-}
-
-.footer-tagline {
-  font-size: 12px;
-  color: var(--muted2);
 }
 
 .footer-links {
   display: flex;
-  gap: 28px;
+  gap: 24px;
+  flex-wrap: wrap;
 }
 
 .footer-link {
   font-size: 12px;
   color: var(--muted);
   text-decoration: none;
-  transition: color 0.2s;
+  transition: color .2s;
 }
 .footer-link:hover { color: var(--ink); }
 
 .footer-copy {
-  font-size: 11px;
-  color: var(--muted2);
   font-family: 'DM Mono', monospace;
+  font-size: 10px;
+  color: var(--muted2);
 }
 
-/* SCROLL REVEAL */
 .reveal {
   opacity: 0;
-  transform: translateY(28px);
-  transition: opacity 0.7s ease, transform 0.7s ease;
+  transform: translateY(24px);
+  transition: opacity .65s ease, transform .65s ease;
 }
-.reveal.visible {
-  opacity: 1;
-  transform: translateY(0);
-}
+.reveal.in { opacity:1; transform:translateY(0); }
 
-/* MOBILE */
-@media (max-width: 768px) {
-  nav {
-    padding: 0 16px;
-    height: 58px;
-  }
-  .nav-right { display: none; }
-  .hero {
-    padding: 92px 16px 56px;
-  }
-  .hero-eyebrow {
-    font-size: 10px;
-    gap: 8px;
-    padding: 5px 10px;
-    line-height: 1.35;
-  }
-  .hero-title {
-    font-size: clamp(40px, 12vw, 62px);
-    line-height: 0.95;
-  }
-  .hero-sub-row {
-    gap: 18px;
-    padding-top: 24px;
-  }
-  .hero-sub {
-    font-size: 15px;
-    line-height: 1.7;
-  }
-  .hero-sub-row { flex-direction: column; align-items: flex-start; }
-  .hero-actions { align-items: flex-start; }
+@media (max-width:900px) {
+  :root { --nav-h: 56px; }
+  nav { padding: 0 20px; }
+  .nav-link { display: none; }
+
+  .hero { padding: var(--nav-h) 20px 0; max-height: none; }
+  .hero-title { font-size: clamp(42px, 10vw, 72px); }
+  .hero-bottom { flex-direction: column; align-items: flex-start; gap: 24px; }
+  .hero-cta { align-items: flex-start; }
+
+  .section { padding: 72px 20px; }
+  .section-title { font-size: clamp(26px, 6vw, 36px); }
+
   .scenario-grid { grid-template-columns: 1fr; }
-  .how-steps { grid-template-columns: 1fr; }
-  .how-steps::before { display: none; }
+
+  .how-section { padding: 72px 20px; }
+  .steps-grid { grid-template-columns: 1fr; gap: 40px; }
+  .step-card { padding: 0; }
+
   .demo-body { grid-template-columns: 1fr; }
-  .dangit-panel { display: none; }
-  .research-inner { grid-template-columns: 1fr; gap: 40px; }
-  .works-grid { grid-template-columns: 1fr; }
-  .scenario-section, .demo-section, .works-section { padding: 56px 16px; }
-  .how-section, .research-section { padding: 56px 16px; }
-  .email-section { padding: 72px 16px; }
-  .section-title {
-    font-size: clamp(24px, 7vw, 34px);
-  }
-  .section-header {
-    margin-bottom: 18px;
-  }
-  .scenario-card, .works-card, .how-step, .stat-card {
-    padding: 24px 20px;
-  }
-  .demo-window {
-    border-radius: 20px;
-  }
-  .demo-titlebar {
-    padding: 12px 14px;
-  }
-  .demo-url {
-    font-size: 10px;
-  }
+  .d-panel { display: none; }
+
+  .research-inner { grid-template-columns: 1fr; gap: 48px; padding: 72px 20px; }
+
+  .works-grid { grid-template-columns: repeat(2,1fr); }
+
+  .email-wrap { padding: 80px 20px; }
   .email-form { flex-direction: column; }
-  .email-input, .email-btn { border-radius: 12px; width: 100%; }
-  .email-title {
-    font-size: clamp(34px, 11vw, 48px);
-  }
-  .email-sub {
-    font-size: 15px;
-    line-height: 1.65;
-  }
-  footer {
-    padding: 24px 16px 30px;
-  }
-  footer { flex-direction: column; gap: 16px; text-align: center; }
-  .cursor { display: none; }
-  * { cursor: auto !important; }
+  .email-input { border-radius: 12px; }
+  .email-btn { border-radius: 12px; height: 48px; }
+  .email-bg { font-size: 180px; }
+
+  footer { padding: 24px 20px; }
 }
 
-@media (max-width: 480px) {
-  .btn-main, .nav-btn, .email-btn {
-    width: 100%;
-    justify-content: center;
-    text-align: center;
-  }
-  .hero-actions {
-    width: 100%;
-  }
-  .hero-sub {
-    max-width: none;
-  }
-  .marquee-item {
-    font-size: 12px;
-  }
-  .scenario-title, .how-step-title, .works-name {
-    font-size: 17px;
-  }
-  .scenario-desc, .how-step-desc, .works-desc {
-    font-size: 13px;
-  }
-  .panel-doc {
-    padding: 16px;
-  }
-  .email-input {
-    padding: 14px 16px;
-  }
+@media (max-width:480px) {
+  .hero-title { font-size: 40px; }
+  .works-grid { grid-template-columns: 1fr 1fr; }
+  .works-card { padding: 20px 16px; }
 }
 </style>
 </head>
 <body>
 
-<div class="cursor" id="cursor"></div>
+<div class="cursor" id="cur"></div>
 
-<!-- NAV -->
 <nav>
-  <a href="#" class="nav-logo">
-    <div class="nav-logo-mark">D!</div>
+  <a href="#" class="nav-brand">
+    <div class="nav-icon">
+      <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+        <path d="M3 8h10M8 3v10" stroke="white" stroke-width="2" stroke-linecap="round"/>
+        <circle cx="8" cy="8" r="2.5" fill="white"/>
+      </svg>
+    </div>
     <span class="nav-wordmark">DANGIT</span>
   </a>
   <div class="nav-right">
     <a href="#how" class="nav-link">How it works</a>
-    <a href="#early-access" class="nav-btn">Add to Chrome →</a>
+    <a href="#access" class="nav-link">Research</a>
+    <a href="#access" class="nav-btn">
+      Add to Chrome
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+    </a>
   </div>
 </nav>
 
-<!-- HERO -->
 <section class="hero">
-  <div class="hero-eyebrow">
-    <span class="hero-dot"></span>
-    Free Chrome Extension · Works on ChatGPT, Claude & Gemini
-  </div>
+  <div class="hero-inner">
+    <div class="hero-badge">
+      <div class="badge-dot"><div class="badge-dot-inner"></div></div>
+      <span class="badge-text">Free · Works on ChatGPT, Claude &amp; Gemini</span>
+    </div>
 
-  <h1 class="hero-title">
-    Your AI chat<br>
-    needs a <span class="italic">working</span><br>
-    <span class="outline">doc.</span>
-  </h1>
+    <h1 class="hero-title">
+      Your AI chat<br>
+      needs a <span class="grad">working</span><br>
+      <span class="outline">document.</span>
+    </h1>
 
-  <div class="hero-sub-row">
-    <p class="hero-sub">
-      Long AI conversations go sideways. The model starts ignoring what you said earlier. You lose track of decisions. Progress evaporates.<br><br>
-      <strong>DANGIT lives inside your chat.</strong> Save fragments, add notes and tasks, and push a smart context summary back in when things drift — in one click.
-    </p>
-    <div class="hero-actions">
-      <a href="#early-access" class="btn-main">
-        ⚡ Add to Chrome — Free
-      </a>
-      <span class="btn-note">No account needed to start</span>
+    <div class="hero-bottom">
+      <p class="hero-sub">
+        Long AI conversations drift. The model forgets constraints you set, decisions you made, context that matters. <strong>DANGIT lives inside your chat</strong> - save fragments, add notes and tasks, push a smart context summary back when things go sideways.
+      </p>
+      <div class="hero-cta">
+        <a href="#access" class="btn-primary">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>
+          Add to Chrome - Free
+        </a>
+        <span class="btn-note">No signup needed to get started</span>
+      </div>
     </div>
   </div>
 </section>
 
-<!-- MARQUEE -->
-<div class="marquee-wrap">
+<div class="marquee-bar">
   <div class="marquee-track">
-    <div class="marquee-item">Save key context <span></span></div>
-    <div class="marquee-item">Add your own notes <span></span></div>
-    <div class="marquee-item">Create tasks <span></span></div>
-    <div class="marquee-item">Push context back in one click <span></span></div>
-    <div class="marquee-item">Works on ChatGPT <span></span></div>
-    <div class="marquee-item">Works on Claude <span></span></div>
-    <div class="marquee-item">Works on Gemini <span></span></div>
-    <div class="marquee-item">Export as Markdown <span></span></div>
-    <div class="marquee-item">Save key context <span></span></div>
-    <div class="marquee-item">Add your own notes <span></span></div>
-    <div class="marquee-item">Create tasks <span></span></div>
-    <div class="marquee-item">Push context back in one click <span></span></div>
-    <div class="marquee-item">Works on ChatGPT <span></span></div>
-    <div class="marquee-item">Works on Claude <span></span></div>
-    <div class="marquee-item">Works on Gemini <span></span></div>
-    <div class="marquee-item">Export as Markdown <span></span></div>
+    <div class="marquee-item">Save key context <span class="marquee-sep"></span></div>
+    <div class="marquee-item">Add notes &amp; tasks <span class="marquee-sep"></span></div>
+    <div class="marquee-item">Push context back in one click <span class="marquee-sep"></span></div>
+    <div class="marquee-item">Works on ChatGPT <span class="marquee-sep"></span></div>
+    <div class="marquee-item">Works on Claude <span class="marquee-sep"></span></div>
+    <div class="marquee-item">Works on Gemini <span class="marquee-sep"></span></div>
+    <div class="marquee-item">Export as Markdown <span class="marquee-sep"></span></div>
+    <div class="marquee-item">Set reminders per session <span class="marquee-sep"></span></div>
+    <div class="marquee-item">Save key context <span class="marquee-sep"></span></div>
+    <div class="marquee-item">Add notes &amp; tasks <span class="marquee-sep"></span></div>
+    <div class="marquee-item">Push context back in one click <span class="marquee-sep"></span></div>
+    <div class="marquee-item">Works on ChatGPT <span class="marquee-sep"></span></div>
+    <div class="marquee-item">Works on Claude <span class="marquee-sep"></span></div>
+    <div class="marquee-item">Works on Gemini <span class="marquee-sep"></span></div>
+    <div class="marquee-item">Export as Markdown <span class="marquee-sep"></span></div>
+    <div class="marquee-item">Set reminders per session <span class="marquee-sep"></span></div>
   </div>
 </div>
 
-<!-- SCENARIOS -->
-<section class="scenario-section reveal">
-  <div class="section-header">
-    <span class="section-num">01</span>
-    <h2 class="section-title">Sound familiar?</h2>
+<div class="section reveal">
+  <div class="section-label">
+    <span class="label-num">01</span>
+    <span class="label-line"></span>
+    <span class="label-text">Sound familiar?</span>
   </div>
+  <h2 class="section-title">Every AI power user<br>has hit this wall.</h2>
   <div class="scenario-grid">
     <div class="scenario-card">
-      <span class="scenario-icon">🍳</span>
-      <h3 class="scenario-title">The olive oil problem</h3>
-      <p class="scenario-desc">You told the AI to use olive oil instead of butter at the start of the conversation. Fifty messages later, the recipe has <em>butter everywhere.</em> It forgot. Again.</p>
+      <div class="sc-icon">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+      </div>
+      <h3 class="sc-title">The constraint that vanished</h3>
+      <p class="sc-desc">You said olive oil, not butter. Budget is $500. D2C brands only. Fifty messages later the AI is recommending <em>$3,000 multi-channel campaigns with butter in every recipe.</em></p>
     </div>
     <div class="scenario-card">
-      <span class="scenario-icon">💸</span>
-      <h3 class="scenario-title">The budget that vanished</h3>
-      <p class="scenario-desc">Budget cap is $500. Clearly stated. Three responses later the AI is recommending a <em>$3,000 campaign strategy.</em> Because it lost the thread.</p>
+      <div class="sc-icon">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>
+      </div>
+      <h3 class="sc-title">The Notion workaround</h3>
+      <p class="sc-desc">You keep a doc open on the side. You manually copy-paste context back in when things drift. It works. But <em>it's so tedious you resent every second of it.</em></p>
     </div>
     <div class="scenario-card">
-      <span class="scenario-icon">🏗️</span>
-      <h3 class="scenario-title">The constraint that disappeared</h3>
-      <p class="scenario-desc">You're building something with specific constraints. An hour into the conversation, the AI is <em>suggesting solutions that violate</em> every constraint you set.</p>
+      <div class="sc-icon">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="23 4 23 10 17 10"/><path d="M20.49 15a9 9 0 1 1-.18-5.16"/></svg>
+      </div>
+      <h3 class="sc-title">Starting over. Again.</h3>
+      <p class="sc-desc">Three hours into a deep research session, the conversation becomes incoherent. Your options: start a new chat and <em>re-explain everything from scratch,</em> or keep going with a confused AI.</p>
     </div>
     <div class="scenario-card">
-      <span class="scenario-icon">📋</span>
-      <h3 class="scenario-title">The Notion workaround</h3>
-      <p class="scenario-desc">You've started keeping a Notion doc open on the side, manually copy-pasting context back in. It works. But <em>it's so tedious</em> you hate every second of it.</p>
+      <div class="sc-icon">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+      </div>
+      <h3 class="sc-title">Lost mid-collaboration</h3>
+      <p class="sc-desc">You're using AI as a thinking partner - building something, refining something. The longer it goes, <em>the more the AI loses the plot</em> of what you're actually trying to do.</p>
     </div>
   </div>
-</section>
+</div>
 
-<!-- HOW IT WORKS -->
-<section class="how-section" id="how">
-  <div class="how-inner">
-    <div class="section-header reveal">
-      <span class="section-num" style="color:rgba(255,255,255,0.2)">02</span>
-      <h2 class="section-title" style="color:white">Three steps.<br>Zero friction.</h2>
+<div class="how-wrap" id="how">
+  <div class="how-section">
+    <div class="section-label reveal">
+      <span class="label-num" style="color:rgba(255,255,255,.2)">02</span>
+      <span class="label-line" style="background:rgba(255,255,255,.15)"></span>
+      <span class="label-text" style="color:rgba(255,255,255,.3)">How it works</span>
     </div>
-    <div class="how-steps reveal">
-      <div class="how-step">
-        <div class="how-step-num">01</div>
-        <h3 class="how-step-title">Select & save as you go</h3>
-        <p class="how-step-desc">Highlight any text in your AI conversation — a key decision, a constraint, an insight. <strong>Right-click → Save to DANGIT.</strong> Two seconds. Keep going.</p>
+    <h2 class="section-title reveal" style="color:white;margin-bottom:56px">Three steps.<br>Zero friction.</h2>
+    <div class="steps-grid reveal">
+      <div class="step-card">
+        <div class="step-num-circle">01</div>
+        <h3 class="step-title">Select &amp; save</h3>
+        <p class="step-desc">Highlight any text in your AI conversation - a decision, a constraint, an insight. <strong>Right-click -&gt; Save to DANGIT.</strong> Two seconds. Keep going.</p>
       </div>
-      <div class="how-step">
-        <div class="how-step-num">02</div>
-        <h3 class="how-step-title">Build your session doc</h3>
-        <p class="how-step-desc">Add your own <strong>notes, tasks, and reminders</strong> alongside what you saved. Everything lives in one clean doc, organized per conversation.</p>
+      <div class="step-card">
+        <div class="step-num-circle">02</div>
+        <h3 class="step-title">Build the doc</h3>
+        <p class="step-desc">Add your own <strong>notes, tasks, and reminders</strong> alongside saved fragments. One clean document, organized per conversation, per session.</p>
       </div>
-      <div class="how-step">
-        <div class="how-step-num">03</div>
-        <h3 class="how-step-title">Push smart context back</h3>
-        <p class="how-step-desc">When the chat drifts, hit <strong>Push to Chat.</strong> DANGIT reads your doc, generates a smart summary, and injects it straight into the chat. The AI snaps back.</p>
+      <div class="step-card">
+        <div class="step-num-circle">03</div>
+        <h3 class="step-title">Push context back</h3>
+        <p class="step-desc">When the chat drifts, hit <strong>Push to Chat.</strong> DANGIT reads your session doc and injects a smart, structured context summary. The AI snaps back.</p>
       </div>
     </div>
   </div>
-</section>
+</div>
 
-<!-- PRODUCT DEMO -->
-<section class="demo-section reveal">
-  <div class="section-header">
-    <span class="section-num">03</span>
-    <h2 class="section-title">See it in action</h2>
+<div class="section reveal">
+  <div class="section-label">
+    <span class="label-num">03</span>
+    <span class="label-line"></span>
+    <span class="label-text">See it in action</span>
   </div>
+  <h2 class="section-title">Your session doc,<br>living inside the chat.</h2>
   <div class="demo-window">
-    <div class="demo-titlebar">
-      <div class="demo-dots">
-        <div class="demo-dot demo-dot-r"></div>
-        <div class="demo-dot demo-dot-y"></div>
-        <div class="demo-dot demo-dot-g"></div>
+    <div class="demo-bar">
+      <div class="traffic">
+        <div class="tl tl-r"></div>
+        <div class="tl tl-y"></div>
+        <div class="tl tl-g"></div>
       </div>
-      <div class="demo-url">chat.openai.com</div>
+      <div class="demo-url">chat.openai.com - Marketing Strategy Session</div>
       <div style="width:60px"></div>
     </div>
     <div class="demo-body">
       <div class="demo-chat">
-        <div class="demo-chat-title">ChatGPT — Marketing session</div>
-        <div class="chat-bubble-wrap">
-          <div class="chat-bubble-role u">You</div>
-          <div class="chat-bubble-text">Help me plan an outreach campaign. <mark>Budget cap: $500.</mark> We're targeting D2C skincare brands only. Instagram and Reddit. No broad campaigns.</div>
+        <div class="chat-section-label">ChatGPT - 40 messages in</div>
+        <div class="msg">
+          <div class="msg-role u">You</div>
+          <div class="msg-text">Let's plan an outreach campaign. <mark>Budget: $500 max.</mark> Targeting D2C skincare brands only. Instagram and Reddit. No broad campaigns, no paid ads beyond $500.</div>
         </div>
-        <div class="chat-bubble-wrap">
-          <div class="chat-bubble-role a">ChatGPT</div>
-          <div class="chat-bubble-text">Great constraints to work with. Let me map out a tight $500 campaign focused on D2C skincare...</div>
+        <div class="msg">
+          <div class="msg-role a">ChatGPT</div>
+          <div class="msg-text">Perfect constraints. Let me map out a tight $500 strategy focused on D2C skincare with organic Instagram and Reddit outreach...</div>
         </div>
-        <div style="font-size:11px;color:rgba(255,255,255,0.15);text-align:center;padding:8px 0;font-family:'DM Mono',monospace">— 40 messages later —</div>
-        <div class="chat-bubble-wrap">
-          <div class="chat-bubble-role a">ChatGPT</div>
-          <div class="chat-bubble-text drift">I'd recommend a broad multi-channel approach with a budget of around $2,000–$5,000. Facebook, Google Ads, influencer partnerships across fashion and wellness...</div>
+        <div style="font-family:'DM Mono',monospace;font-size:10px;color:rgba(255,255,255,.12);text-align:center;padding:8px 0;letter-spacing:.06em">- 38 more messages -</div>
+        <div class="msg">
+          <div class="msg-role a">ChatGPT</div>
+          <div class="msg-text drift">I'd recommend a broad multi-channel approach with a budget of around $2,000-$5,000. Facebook Ads, Google Display, influencer partnerships across fashion, wellness, and lifestyle verticals...</div>
         </div>
-        <div class="drift-label">⚠ context drift detected — 40+ messages in</div>
-      </div>
-      <div class="dangit-panel">
-        <div class="panel-top">
-          <span class="panel-logo">DANGIT</span>
-          <span class="panel-badge">ChatGPT</span>
-        </div>
-        <div class="panel-session-title">Marketing — D2C Skincare</div>
-        <div class="panel-doc">
-          <div class="doc-section-label">saved from conversation</div>
-          <div class="doc-saved">Budget cap: $500. D2C skincare brands only. Instagram + Reddit. No broad campaigns.</div>
-          <div class="doc-section-label" style="margin-top:10px">notes</div>
-          <p style="font-size:12px;color:rgba(255,255,255,0.5);margin-bottom:10px">
-            <span class="doc-note-hl">follow up with brand X after testing format</span>
-          </p>
-          <div class="doc-section-label" style="margin-top:2px">tasks</div>
-          <div class="doc-task">
-            <div class="doc-check"></div>
-            <span class="doc-task-text">Draft outreach for 3 brands</span>
-          </div>
-          <div class="doc-task">
-            <div class="doc-check done"></div>
-            <span class="doc-task-text done">Research D2C skincare market</span>
-          </div>
-        </div>
-        <div class="panel-footer">
-          <button class="panel-push-btn">↩ Push smart context to chat</button>
-          <div class="panel-footer-row">
-            <span class="panel-footer-link">all sessions</span>
-            <span class="panel-footer-link">export .md</span>
-          </div>
+        <div class="drift-pill">
+          <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+          Context drift - 40+ messages in
         </div>
       </div>
-    </div>
-  </div>
-</section>
-
-<!-- RESEARCH -->
-<div class="research-section">
-  <div class="research-inner">
-    <div class="reveal">
-      <div class="research-label">The science behind it</div>
-      <h2 class="research-title">This isn't in your head.<br>It's <em>architecturally real.</em></h2>
-      <p class="research-body">
-        Researchers call it <strong>Context Degradation Syndrome</strong> — the longer your AI conversation gets, the more the model structurally fails to use information from earlier in the chat. It's not a bug. It's how these models are built.<br><br>
-        DANGIT is the workaround. You save the bones of what matters, and we inject it back in a format the AI actually understands — structured, contextual, clear.
-      </p>
-    </div>
-    <div class="research-stats reveal">
-      <div class="stat-card">
-        <div class="stat-num">&gt;30%</div>
-        <div class="stat-label">Performance drop once a conversation exceeds the critical context threshold — even when all information is technically still present.</div>
-        <span class="stat-source">Wang et al., 2026 — Intelligence Degradation in Long-Context LLMs</span>
-      </div>
-      <div class="stat-card">
-        <div class="stat-num">Lost in middle</div>
-        <div class="stat-label">LLMs disproportionately prioritize the start and end of conversations. Crucial details in the <strong>middle get overlooked</strong> by design.</div>
-        <span class="stat-source">Liu et al., 2023 — Lost in the Middle</span>
+      <div class="d-panel">
+        <div class="d-top">
+          <span class="d-logo">DANGIT</span>
+          <span class="d-badge">ChatGPT</span>
+        </div>
+        <div class="d-title">Marketing - D2C Skincare</div>
+        <div class="d-body">
+          <div class="d-sec">Saved from conversation</div>
+          <div class="d-saved">Budget cap $500. D2C skincare only. Instagram + Reddit. No broad campaigns or paid ads above $500.</div>
+          <div class="d-sec" style="margin-top:8px">Notes</div>
+          <div class="d-note-hl">follow up with brand X post-test</div>
+          <div class="d-sec" style="margin-top:2px">Tasks</div>
+          <div class="d-task">
+            <div class="d-cb"></div>
+            <span class="d-task-t">Draft outreach for 3 brands</span>
+          </div>
+          <div class="d-task">
+            <div class="d-cb on"></div>
+            <span class="d-task-t done">Research D2C skincare landscape</span>
+          </div>
+        </div>
+        <div class="d-footer">
+          <div class="d-push">
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="15 10 20 15 15 20"/><path d="M4 4v7a4 4 0 0 0 4 4h12"/></svg>
+            Push smart context to chat
+          </div>
+          <div class="d-footer-row">
+            <span class="d-footer-link">all sessions</span>
+            <span class="d-footer-link">export .md</span>
+          </div>
+        </div>
       </div>
     </div>
   </div>
 </div>
 
-<!-- WORKS ON -->
-<section class="works-section reveal">
-  <div class="section-header">
-    <span class="section-num">04</span>
-    <h2 class="section-title">Works wherever<br>you use AI</h2>
+<div class="research-wrap" id="access">
+  <div class="research-inner">
+    <div class="reveal">
+      <div class="section-label" style="margin-bottom:20px">
+        <span class="label-num">04</span>
+        <span class="label-line"></span>
+        <span class="label-text">The science</span>
+      </div>
+      <h2 class="research-title">This isn't in your head.<br>It's <em>architecturally real.</em></h2>
+      <p class="research-body">
+        Researchers call it <strong>Context Degradation Syndrome</strong> - the longer your AI conversation grows, the more the model structurally fails to apply information from earlier in the chat. Not a bug. A fundamental architectural limitation.<br><br>
+        DANGIT gives the AI a fighting chance. Save what matters, and push it back in a format that's structured, contextual, and actually works.
+      </p>
+    </div>
+    <div class="stat-cards reveal">
+      <div class="stat-card">
+        <div class="stat-num">&gt;30%</div>
+        <div class="stat-desc">Performance drop once a conversation exceeds the critical context threshold - even when all tokens are technically still present in the window.</div>
+        <span class="stat-src">Wang et al., 2026 - Intelligence Degradation in Long-Context LLMs</span>
+      </div>
+      <div class="stat-card">
+        <div class="stat-num">Lost in middle</div>
+        <div class="stat-desc">LLMs structurally prioritize the start and end of conversations. Critical details in the middle get systematically deprioritized by design.</div>
+        <span class="stat-src">Liu et al., 2023 - Lost in the Middle</span>
+      </div>
+    </div>
   </div>
+</div>
+
+<div class="section reveal">
+  <div class="section-label">
+    <span class="label-num">05</span>
+    <span class="label-line"></span>
+    <span class="label-text">Compatibility</span>
+  </div>
+  <h2 class="section-title">Works wherever<br>you use AI.</h2>
   <div class="works-grid">
     <div class="works-card">
-      <span class="works-emoji">🤖</span>
+      <div class="works-icon">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+      </div>
       <div class="works-name">ChatGPT</div>
-      <div class="works-desc">All versions including GPT-4o and o1</div>
+      <div class="works-desc">All models including GPT-4o and o1</div>
     </div>
     <div class="works-card">
-      <span class="works-emoji">🧠</span>
+      <div class="works-icon">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+      </div>
       <div class="works-name">Claude</div>
-      <div class="works-desc">claude.ai — all models</div>
+      <div class="works-desc">claude.ai - all Anthropic models</div>
     </div>
     <div class="works-card">
-      <span class="works-emoji">✨</span>
+      <div class="works-icon">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+      </div>
       <div class="works-name">Gemini</div>
       <div class="works-desc">Google Gemini web interface</div>
     </div>
     <div class="works-card">
-      <span class="works-emoji">🌐</span>
+      <div class="works-icon">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
+      </div>
       <div class="works-name">Any page</div>
-      <div class="works-desc">Save from any webpage, not just AI chats</div>
+      <div class="works-desc">Save from any webpage, not just AI</div>
     </div>
   </div>
-</section>
+</div>
 
-<!-- EMAIL -->
-<section class="email-section" id="early-access">
-  <div class="email-bg-text">D!</div>
+<div class="email-wrap">
+  <div class="email-bg">D!</div>
   <div class="email-inner reveal">
     <div class="email-pre">Early Access</div>
     <h2 class="email-title">Stop losing<br>your <em>best work.</em></h2>
@@ -1364,16 +1347,12 @@ footer {
       <input type="email" class="email-input" id="emailInput" placeholder="your@email.com" required>
       <button type="submit" class="email-btn" id="emailBtn">Get Early Access</button>
     </form>
-    <p class="email-fine" id="emailNote">No spam. One-click unsubscribe. We hate clutter too.</p>
+    <p class="email-fine" id="emailNote">No spam. One-click unsubscribe.</p>
   </div>
-</section>
+</div>
 
-<!-- FOOTER -->
 <footer>
-  <div class="footer-left">
-    <span class="footer-logo">DANGIT</span>
-    <span class="footer-tagline">Your working doc inside every AI chat</span>
-  </div>
+  <span class="footer-brand">DANGIT</span>
   <div class="footer-links">
     <a href="mailto:itskaushik06@gmail.com" class="footer-link">Contact</a>
     <a href="#" class="footer-link">Privacy</a>
@@ -1383,61 +1362,60 @@ footer {
 </footer>
 
 <script>
-// Custom cursor
-const cursor = document.getElementById('cursor');
-let mx = 0, my = 0;
-document.addEventListener('mousemove', e => {
-  mx = e.clientX; my = e.clientY;
-  cursor.style.left = mx + 'px';
-  cursor.style.top = my + 'px';
-});
-document.querySelectorAll('a, button, .scenario-card, .works-card').forEach(el => {
-  el.addEventListener('mouseenter', () => cursor.classList.add('big'));
-  el.addEventListener('mouseleave', () => cursor.classList.remove('big'));
-});
+const cur = document.getElementById('cur');
+if (cur) {
+  document.addEventListener('mousemove', e => {
+    cur.style.left = e.clientX + 'px';
+    cur.style.top  = e.clientY + 'px';
+  });
+  document.querySelectorAll('a,button,.scenario-card,.works-card,.stat-card').forEach(el => {
+    el.addEventListener('mouseenter', () => cur.classList.add('grow'));
+    el.addEventListener('mouseleave', () => cur.classList.remove('grow'));
+  });
+}
 
-// Scroll reveal
-const observer = new IntersectionObserver(entries => {
-  entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
-}, { threshold: 0.12 });
-document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+const io = new IntersectionObserver(entries => {
+  entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('in'); });
+}, { threshold: 0.1 });
+document.querySelectorAll('.reveal').forEach(el => io.observe(el));
 
-// Email
 const emailForm = document.getElementById('emailForm');
-emailForm.addEventListener('submit', async (e) => {
-  e.preventDefault();
-  const input = document.getElementById('emailInput');
-  const btn = document.getElementById('emailBtn');
-  const note = document.getElementById('emailNote');
-  const email = input.value.trim();
+if (emailForm) {
+  emailForm.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const input = document.getElementById('emailInput');
+    const btn = document.getElementById('emailBtn');
+    const note = document.getElementById('emailNote');
+    const email = input.value.trim();
 
-  btn.disabled = true;
-  btn.textContent = 'Saving...';
-  note.textContent = 'Adding you to the list...';
-  note.style.color = '#7A7060';
+    btn.disabled = true;
+    btn.textContent = 'Saving...';
+    note.textContent = 'Adding you to the list...';
+    note.style.color = '#7A7060';
 
-  try {
-    const response = await fetch('/api/subscribe', {
-      method: 'POST',
-      headers: { 'content-type': 'application/json' },
-      body: JSON.stringify({ email }),
-    });
+    try {
+      const response = await fetch('/api/subscribe', {
+        method: 'POST',
+        headers: { 'content-type': 'application/json' },
+        body: JSON.stringify({ email }),
+      });
 
-    const data = await response.json();
-    if (!response.ok || !data.ok) {
-      throw new Error(data.error || 'Unable to save email.');
+      const data = await response.json();
+      if (!response.ok || !data.ok) {
+        throw new Error(data.error || 'Unable to save email.');
+      }
+
+      btn.textContent = "You're in!";
+      note.textContent = 'Welcome aboard, ' + data.email.split('@')[0] + '. We\'ll be in touch.';
+      note.style.color = '#4ADE80';
+    } catch (error) {
+      btn.disabled = false;
+      btn.textContent = 'Get Early Access';
+      note.textContent = error.message || 'Something went wrong. Please try again.';
+      note.style.color = '#E8194B';
     }
-
-    btn.textContent = '🎉 You\'re in!';
-    note.textContent = `Welcome to DANGIT, ${data.email.split('@')[0]}. We\'ll be in touch.`;
-    note.style.color = '#4ADE80';
-  } catch (error) {
-    btn.disabled = false;
-    btn.textContent = 'Get Early Access';
-    note.textContent = error.message || 'Something went wrong. Please try again.';
-    note.style.color = '#E8194B';
-  }
-});
+  });
+}
 </script>
 </body>
 </html>
