@@ -5,3 +5,20 @@ create table if not exists public.subscribers (
 );
 
 alter table public.subscribers enable row level security;
+
+do $$
+begin
+  if not exists (
+    select 1
+    from pg_policies
+    where schemaname = 'public'
+      and tablename = 'subscribers'
+      and policyname = 'allow public insert'
+  ) then
+    create policy "allow public insert"
+      on public.subscribers
+      for insert
+      to anon, authenticated
+      with check (true);
+  end if;
+end $$;

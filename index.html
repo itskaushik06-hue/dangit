@@ -1003,8 +1003,32 @@ footer {
 
 /* MOBILE */
 @media (max-width: 768px) {
-  nav { padding: 0 20px; }
-  .hero { padding: 100px 20px 60px; }
+  nav {
+    padding: 0 16px;
+    height: 58px;
+  }
+  .nav-right { display: none; }
+  .hero {
+    padding: 92px 16px 56px;
+  }
+  .hero-eyebrow {
+    font-size: 10px;
+    gap: 8px;
+    padding: 5px 10px;
+    line-height: 1.35;
+  }
+  .hero-title {
+    font-size: clamp(40px, 12vw, 62px);
+    line-height: 0.95;
+  }
+  .hero-sub-row {
+    gap: 18px;
+    padding-top: 24px;
+  }
+  .hero-sub {
+    font-size: 15px;
+    line-height: 1.7;
+  }
   .hero-sub-row { flex-direction: column; align-items: flex-start; }
   .hero-actions { align-items: flex-start; }
   .scenario-grid { grid-template-columns: 1fr; }
@@ -1013,15 +1037,72 @@ footer {
   .demo-body { grid-template-columns: 1fr; }
   .dangit-panel { display: none; }
   .research-inner { grid-template-columns: 1fr; gap: 40px; }
-  .works-grid { grid-template-columns: 1fr 1fr; }
-  .scenario-section, .demo-section, .works-section { padding: 60px 20px; }
-  .how-section, .research-section { padding: 60px 20px; }
-  .email-section { padding: 80px 20px; }
+  .works-grid { grid-template-columns: 1fr; }
+  .scenario-section, .demo-section, .works-section { padding: 56px 16px; }
+  .how-section, .research-section { padding: 56px 16px; }
+  .email-section { padding: 72px 16px; }
+  .section-title {
+    font-size: clamp(24px, 7vw, 34px);
+  }
+  .section-header {
+    margin-bottom: 18px;
+  }
+  .scenario-card, .works-card, .how-step, .stat-card {
+    padding: 24px 20px;
+  }
+  .demo-window {
+    border-radius: 20px;
+  }
+  .demo-titlebar {
+    padding: 12px 14px;
+  }
+  .demo-url {
+    font-size: 10px;
+  }
   .email-form { flex-direction: column; }
   .email-input, .email-btn { border-radius: 12px; width: 100%; }
+  .email-title {
+    font-size: clamp(34px, 11vw, 48px);
+  }
+  .email-sub {
+    font-size: 15px;
+    line-height: 1.65;
+  }
+  footer {
+    padding: 24px 16px 30px;
+  }
   footer { flex-direction: column; gap: 16px; text-align: center; }
   .cursor { display: none; }
   * { cursor: auto !important; }
+}
+
+@media (max-width: 480px) {
+  .btn-main, .nav-btn, .email-btn {
+    width: 100%;
+    justify-content: center;
+    text-align: center;
+  }
+  .hero-actions {
+    width: 100%;
+  }
+  .hero-sub {
+    max-width: none;
+  }
+  .marquee-item {
+    font-size: 12px;
+  }
+  .scenario-title, .how-step-title, .works-name {
+    font-size: 17px;
+  }
+  .scenario-desc, .how-step-desc, .works-desc {
+    font-size: 13px;
+  }
+  .panel-doc {
+    padding: 16px;
+  }
+  .email-input {
+    padding: 14px 16px;
+  }
 }
 </style>
 </head>

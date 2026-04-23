@@ -22,7 +22,10 @@ async function writeLocalSubscriber(email) {
 
 async function saveToSupabase(email) {
   const url = process.env.SUPABASE_URL;
-  const key = process.env.SUPABASE_SERVICE_ROLE_KEY;
+  const key =
+    process.env.SUPABASE_SERVICE_ROLE_KEY ||
+    process.env.SUPABASE_ANON_KEY ||
+    process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
   const table = process.env.SUPABASE_SUBSCRIBERS_TABLE || "subscribers";
 
   if (!url || !key) {
