@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://trydangit.in/sitemap.xml

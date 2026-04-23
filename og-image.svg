@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630" role="img" aria-label="DANGIT social preview">
+  <defs>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#F7F4EE"/>
+      <stop offset="55%" stop-color="#EFEBE3"/>
+      <stop offset="100%" stop-color="#E8E3D8"/>
+    </linearGradient>
+    <linearGradient id="accent" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#1A3AE8"/>
+      <stop offset="50%" stop-color="#8B10C8"/>
+      <stop offset="100%" stop-color="#E8194B"/>
+    </linearGradient>
+  </defs>
+  <rect width="1200" height="630" fill="url(#bg)"/>
+  <circle cx="1020" cy="110" r="180" fill="url(#accent)" opacity="0.12"/>
+  <circle cx="175" cy="520" r="220" fill="url(#accent)" opacity="0.10"/>
+  <rect x="80" y="72" width="98" height="98" rx="28" fill="url(#accent)"/>
+  <path d="M113 138V104h14.8c11 0 18.2 6.7 18.2 16.5S138.8 137 127.8 137H113zm11-8h3.4c5.9 0 9.8-3.6 9.8-8.5s-3.9-8.5-9.8-8.5H124v17z" fill="#fff"/>
+  <path d="M153 100l3.5 8.5 8.5 3.5-8.5 3.5-3.5 8.5-3.5-8.5-8.5-3.5 8.5-3.5 3.5-8.5z" fill="#FDFBF7" opacity="0.95"/>
+  <text x="80" y="270" font-family="Fraunces, Georgia, serif" font-size="84" font-weight="900" fill="#0F0E0A">DANGIT</text>
+  <text x="80" y="340" font-family="Plus Jakarta Sans, Arial, sans-serif" font-size="34" font-weight="600" fill="#2A2820">Your working doc inside every AI chat</text>
+  <text x="80" y="410" font-family="Plus Jakarta Sans, Arial, sans-serif" font-size="25" fill="#7A7060">Keep context, decisions, and next steps clean, structured, and easy to reuse.</text>
+  <rect x="80" y="472" width="320" height="76" rx="38" fill="#0F0E0A"/>
+  <text x="240" y="520" text-anchor="middle" font-family="Plus Jakarta Sans, Arial, sans-serif" font-size="24" font-weight="700" fill="#FDFBF7">DANGIT is launch-ready</text>
+</svg>

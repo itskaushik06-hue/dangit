@@ -1,0 +1,17 @@
+{
+  "name": "DANGIT",
+  "short_name": "DANGIT",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "background_color": "#F7F4EE",
+  "theme_color": "#E8194B",
+  "description": "DANGIT helps you keep a clean working doc inside every AI chat.",
+  "icons": [
+    {
+      "src": "/favicon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml"
+    }
+  ]
+}
