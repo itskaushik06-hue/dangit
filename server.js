@@ -74,7 +74,7 @@ const server = http.createServer(async (req, res) => {
 
   let pathname = url.pathname;
   if (pathname === "/") pathname = "/index.html";
-  if (pathname === "/privacy" || pathname === "/privacy/") pathname = "/privacy_policy.html";
+  if (pathname === "/privacy" || pathname === "/privacy/") pathname = "/privacy.html";
 
   const filePath = path.join(root, pathname);
   if (!filePath.startsWith(root)) {
