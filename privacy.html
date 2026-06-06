@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Privacy Policy — DANGIT</title>
+  <meta name="description" content="DANGIT Privacy Policy — how we collect, use, and protect your data.">
+  <meta name="theme-color" content="#E8194B">
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,700;0,9..144,900;1,9..144,300;1,9..144,700&family=DM+Mono:wght@400;500&family=Plus+Jakarta+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --ink:#0F0E0A;--ink2:#2A2820;--muted:#7A7060;--muted2:#B0A898;
+      --bg:#F7F4EE;--bg2:#EFEBE3;--paper:#FDFBF7;
+      --pink:#E8194B;--blue:#1A3AE8;--purple:#8B10C8;
+      --grad:linear-gradient(120deg,#1A3AE8 0%,#8B10C8 50%,#E8194B 100%);
+      --border:rgba(15,14,10,0.08);--nav-h:60px;
+    }
+    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+    html{scroll-behavior:smooth}
+    body{font-family:'Plus Jakarta Sans',sans-serif;background:var(--bg);color:var(--ink);overflow-x:hidden;-webkit-font-smoothing:antialiased}
+
+    nav{position:fixed;top:0;left:0;right:0;height:var(--nav-h);z-index:200;display:flex;align-items:center;justify-content:space-between;padding:0 40px;background:rgba(247,244,238,0.88);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);border-bottom:1px solid var(--border)}
+    .nav-brand{display:flex;align-items:center;gap:9px;text-decoration:none}
+    .nav-icon{width:30px;height:30px;border-radius:7px;background:var(--grad);display:grid;place-items:center;flex-shrink:0}
+    .nav-wordmark{font-family:'Fraunces',serif;font-weight:900;font-size:17px;letter-spacing:.04em;color:var(--ink)}
+    .nav-back{font-size:13px;font-weight:500;color:var(--muted);text-decoration:none;display:flex;align-items:center;gap:6px;transition:color .2s}
+    .nav-back:hover{color:var(--ink)}
+
+    .page-hero{padding:calc(var(--nav-h) + 72px) 40px 64px;max-width:860px;margin:0 auto;position:relative}
+    .page-hero::before{content:'';position:absolute;inset:0;background-image:linear-gradient(var(--border) 1px,transparent 1px),linear-gradient(90deg,var(--border) 1px,transparent 1px);background-size:80px 80px;pointer-events:none;mask-image:radial-gradient(ellipse 100% 100% at 50% 0%,black 20%,transparent 80%);z-index:0}
+    .hero-inner{position:relative;z-index:1}
+    .eyebrow{display:flex;align-items:center;gap:14px;margin-bottom:24px}
+    .label-line{width:24px;height:1px;background:var(--muted2)}
+    .label-text{font-family:'DM Mono',monospace;font-size:11px;color:var(--muted);letter-spacing:.06em;text-transform:uppercase}
+    .page-title{font-family:'Fraunces',serif;font-weight:900;font-size:clamp(42px,6vw,72px);line-height:.96;letter-spacing:-.03em;color:var(--ink);margin-bottom:20px}
+    .page-title em{font-style:italic;font-weight:300;background:var(--grad);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+    .page-meta{font-family:'DM Mono',monospace;font-size:11px;color:var(--muted2);letter-spacing:.04em;padding-top:20px;border-top:1px solid var(--border)}
+    .page-meta a{color:var(--pink);text-decoration:none}
+
+    .content-wrap{max-width:860px;margin:0 auto;padding:0 40px 96px;display:grid;grid-template-columns:200px 1fr;gap:64px;align-items:start}
+    .toc{position:sticky;top:calc(var(--nav-h) + 32px)}
+    .toc-label{font-family:'DM Mono',monospace;font-size:10px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted2);margin-bottom:14px}
+    .toc-list{list-style:none;display:flex;flex-direction:column;gap:2px}
+    .toc-list a{display:block;font-size:12px;color:var(--muted);text-decoration:none;padding:5px 10px;border-radius:6px;line-height:1.4;transition:background .15s,color .15s}
+    .toc-list a:hover{background:var(--bg2);color:var(--ink)}
+
+    .article{min-width:0}
+    .highlight-box{background:var(--paper);border:1px solid var(--border);border-left:3px solid var(--pink);border-radius:0 12px 12px 0;padding:18px 22px;margin-bottom:40px}
+    .highlight-box p{font-size:14px;color:var(--ink2);line-height:1.7}
+    .policy-section{margin-bottom:48px;scroll-margin-top:calc(var(--nav-h) + 24px)}
+    h2{font-family:'Fraunces',serif;font-weight:700;font-size:22px;line-height:1.15;letter-spacing:-.02em;color:var(--ink);margin-bottom:14px;display:flex;align-items:baseline;gap:12px}
+    .sec-num{font-family:'DM Mono',monospace;font-size:10px;font-weight:400;color:var(--muted2);letter-spacing:.06em;flex-shrink:0}
+    p{font-size:14.5px;color:var(--ink2);line-height:1.78;margin-bottom:14px}
+    p:last-child{margin-bottom:0}
+    strong{color:var(--ink);font-weight:600}
+    ul{list-style:none;margin-bottom:16px;display:flex;flex-direction:column;gap:6px}
+    li{font-size:14.5px;color:var(--ink2);line-height:1.7;padding-left:18px;position:relative}
+    li::before{content:'';position:absolute;left:0;top:10px;width:5px;height:5px;border-radius:50%;background:var(--muted2)}
+    a{color:var(--pink);text-decoration:none}
+    a:hover{text-decoration:underline}
+    .divider{border:none;border-top:1px solid var(--border);margin:40px 0}
+
+    .perm-grid{display:flex;flex-direction:column;gap:10px;margin-bottom:16px}
+    .perm-card{background:var(--paper);border:1px solid var(--border);border-radius:10px;padding:14px 16px;display:grid;grid-template-columns:130px 1fr;gap:12px;align-items:start}
+    .perm-name{font-family:'DM Mono',monospace;font-size:11px;font-weight:500;color:var(--ink);letter-spacing:.02em;padding-top:1px}
+    .perm-desc{font-size:13px;color:var(--muted);line-height:1.6}
+
+    .contact-card{background:var(--ink);border-radius:16px;padding:32px;margin-top:48px;position:relative;overflow:hidden}
+    .contact-card::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:var(--grad)}
+    .contact-card .contact-label{font-family:'DM Mono',monospace;font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:rgba(255,255,255,.3);margin-bottom:12px}
+    .contact-card h3{font-family:'Fraunces',serif;font-weight:700;font-size:22px;color:white;margin-bottom:10px;line-height:1.2}
+    .contact-card p{color:rgba(255,255,255,.45);font-size:14px;margin-bottom:10px}
+    .contact-card a{color:rgba(255,255,255,.75)}
+    .contact-card a:hover{color:white}
+
+    footer{padding:28px 40px;border-top:1px solid var(--border);background:var(--bg);display:flex;align-items:center;justify-content:space-between;gap:20px;flex-wrap:wrap}
+    .footer-brand{font-family:'Fraunces',serif;font-weight:900;font-size:15px;letter-spacing:.04em;color:var(--ink)}
+    .footer-links{display:flex;gap:24px;flex-wrap:wrap}
+    .footer-link{font-size:12px;color:var(--muted);text-decoration:none;transition:color .2s}
+    .footer-link:hover{color:var(--ink)}
+    .footer-copy{font-family:'DM Mono',monospace;font-size:10px;color:var(--muted2)}
+
+    @media(max-width:860px){
+      nav{padding:0 20px}
+      .page-hero{padding:calc(var(--nav-h) + 48px) 20px 48px}
+      .content-wrap{grid-template-columns:1fr;gap:40px;padding:0 20px 72px}
+      .toc{display:none}
+      footer{padding:24px 20px}
+    }
+  </style>
+</head>
+<body>
+
+<nav>
+  <a href="/" class="nav-brand">
+    <div class="nav-icon">
+      <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+        <path d="M3 8h10M8 3v10" stroke="white" stroke-width="2" stroke-linecap="round"/>
+        <circle cx="8" cy="8" r="2.5" fill="white"/>
+      </svg>
+    </div>
+    <span class="nav-wordmark">DANGIT</span>
+  </a>
+  <a href="/" class="nav-back">
+    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+    Back to home
+  </a>
+</nav>
+
+<div class="page-hero">
+  <div class="hero-inner">
+    <div class="eyebrow">
+      <span class="label-line"></span>
+      <span class="label-text">Legal</span>
+    </div>
+    <h1 class="page-title">Privacy <em>Policy.</em></h1>
+    <p class="page-meta">Effective: June 7, 2026 &nbsp;·&nbsp; Last updated: June 7, 2026 &nbsp;·&nbsp; <a href="mailto:dangit.app@gmail.com">dangit.app@gmail.com</a></p>
+  </div>
+</div>
+
+<div class="content-wrap">
+
+  <aside class="toc">
+    <div class="toc-label">Contents</div>
+    <ul class="toc-list">
+      <li><a href="#who">Who we are</a></li>
+      <li><a href="#collect">What we collect</a></li>
+      <li><a href="#use">How we use it</a></li>
+      <li><a href="#summary">Context summaries</a></li>
+      <li><a href="#storage">Storage & security</a></li>
+      <li><a href="#third-party">Third parties</a></li>
+      <li><a href="#retention">Data retention</a></li>
+      <li><a href="#permissions">Permissions</a></li>
+      <li><a href="#children">Children</a></li>
+      <li><a href="#rights">Your rights</a></li>
+      <li><a href="#changes">Changes</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+  </aside>
+
+  <article class="article">
+
+    <div class="highlight-box">
+      <p><strong>The short version:</strong> DANGIT saves only what you explicitly choose to save. We do not read your conversations, we do not track your browsing, and we do not sell your data. Ever.</p>
+    </div>
+
+    <p>This Privacy Policy describes how DANGIT ("we", "us", "our") collects, uses, and protects information when you use the DANGIT Chrome extension and associated services at <a href="https://trydangit.in">trydangit.in</a>. By installing and using DANGIT, you agree to the practices described here.</p>
+
+    <hr class="divider">
+
+    <div class="policy-section" id="who">
+      <h2><span class="sec-num">01</span> Who We Are</h2>
+      <p>DANGIT is a Chrome browser extension that helps you save and manage context from AI conversations on Claude, ChatGPT, and Gemini. We are an independent product based in Hyderabad, India. Reach us at <a href="mailto:dangit.app@gmail.com">dangit.app@gmail.com</a>.</p>
+    </div>
+
+    <div class="policy-section" id="collect">
+      <h2><span class="sec-num">02</span> What We Collect</h2>
+      <p>We collect only what is necessary to provide the service.</p>
+      <p><strong>Information you provide directly:</strong></p>
+      <ul>
+        <li>Your email address — used solely for authentication via one-time login code</li>
+        <li>Text snippets you explicitly select and save using "Save to DANGIT"</li>
+        <li>Notes, tasks, and reminders you create within the extension</li>
+      </ul>
+      <p><strong>Information collected automatically:</strong></p>
+      <ul>
+        <li>The URL and page title of AI chat sessions, used to associate your saved items with the correct session</li>
+        <li>The count of visible messages in an active conversation, used only to calculate the local context health indicator — this is never sent to our servers</li>
+      </ul>
+      <p><strong>What we do not collect:</strong></p>
+      <ul>
+        <li>Your full AI conversation history</li>
+        <li>Any webpage content beyond what you explicitly save</li>
+        <li>Browsing history, search history, or activity on non-AI websites</li>
+        <li>Any personally identifiable information beyond your email address</li>
+        <li>Payment or financial information of any kind</li>
+      </ul>
+    </div>
+
+    <div class="policy-section" id="use">
+      <h2><span class="sec-num">03</span> How We Use Your Information</h2>
+      <ul>
+        <li>To authenticate you and maintain your account securely</li>
+        <li>To store and retrieve your saved items, notes, tasks, and reminders</li>
+        <li>To generate context summaries when you press "Push summary to chat" — only your saved items are sent, not your full conversation</li>
+        <li>To display the context health indicator locally within the extension</li>
+      </ul>
+      <p>We do not use your data for advertising, profiling, or any purpose beyond providing the DANGIT service to you.</p>
+    </div>
+
+    <div class="policy-section" id="summary">
+      <h2><span class="sec-num">04</span> Context Summary Generation</h2>
+      <p>When you press "Push summary to chat", DANGIT sends your manually saved text snippets, notes, and tasks to OpenAI's API to generate a compressed context summary, which is then injected into your active AI chat input.</p>
+      <p><strong>Only the content you have explicitly saved is sent to OpenAI</strong> — not your full conversation, not any other page content. We have configured our API usage to opt out of training data use where available.</p>
+      <p>OpenAI's privacy policy applies to this processing: <a href="https://openai.com/policies/privacy-policy" target="_blank" rel="noopener">openai.com/policies/privacy-policy</a></p>
+    </div>
+
+    <div class="policy-section" id="storage">
+      <h2><span class="sec-num">05</span> Data Storage and Security</h2>
+      <p>Your data is stored using Supabase, a cloud database platform with industry-standard security including encryption at rest and in transit. Authentication uses short-lived JWT tokens — we do not store passwords.</p>
+      <p>All communication between the extension and our servers occurs over HTTPS. No data is ever transmitted over unencrypted connections.</p>
+    </div>
+
+    <div class="policy-section" id="third-party">
+      <h2><span class="sec-num">06</span> Third-Party Services</h2>
+      <ul>
+        <li><strong>Supabase</strong> — authentication and data storage. <a href="https://supabase.com/privacy" target="_blank" rel="noopener">supabase.com/privacy</a></li>
+        <li><strong>OpenAI</strong> — context summary generation on push. <a href="https://openai.com/policies/privacy-policy" target="_blank" rel="noopener">openai.com/policies/privacy-policy</a></li>
+      </ul>
+      <p>We do not share your data with any other third parties. We do not use advertising networks, analytics platforms, or tracking services of any kind.</p>
+    </div>
+
+    <div class="policy-section" id="retention">
+      <h2><span class="sec-num">07</span> Data Retention</h2>
+      <p>Your data is retained until you delete it or request account deletion. You can delete individual saved items at any time from within the extension.</p>
+      <p>To request full account deletion and permanent removal of all data, email <a href="mailto:dangit.app@gmail.com">dangit.app@gmail.com</a> with the subject line <strong>"Delete my account"</strong>. We will process your request within 30 days and confirm when complete.</p>
+    </div>
+
+    <div class="policy-section" id="permissions">
+      <h2><span class="sec-num">08</span> Chrome Extension Permissions</h2>
+      <p>DANGIT requests the following browser permissions, each used only as described — nothing more.</p>
+      <div class="perm-grid">
+        <div class="perm-card"><span class="perm-name">activeTab</span><span class="perm-desc">To read the URL and title of your current AI chat for session management, and to inject context into the chat input when you press push.</span></div>
+        <div class="perm-card"><span class="perm-name">scripting</span><span class="perm-desc">To count visible messages for the local context health indicator, and to inject context text into the chat input field.</span></div>
+        <div class="perm-card"><span class="perm-name">storage</span><span class="perm-desc">To store your authentication token and health state locally in your browser.</span></div>
+        <div class="perm-card"><span class="perm-name">contextMenus</span><span class="perm-desc">To add "Save to DANGIT" when you right-click selected text in an AI conversation.</span></div>
+        <div class="perm-card"><span class="perm-name">alarms</span><span class="perm-desc">To fire reminder notifications at the exact time you set them.</span></div>
+        <div class="perm-card"><span class="perm-name">notifications</span><span class="perm-desc">To display reminder alerts you have created within the extension.</span></div>
+        <div class="perm-card"><span class="perm-name">tabs</span><span class="perm-desc">To identify which tab is active when saving or pushing context, so items are associated with the correct session.</span></div>
+      </div>
+      <p>The content script runs on all URLs only to enable right-click saving. It does not read, transmit, or store any page content unless you explicitly trigger a save action.</p>
+    </div>
+
+    <div class="policy-section" id="children">
+      <h2><span class="sec-num">09</span> Children's Privacy</h2>
+      <p>DANGIT is not directed at children under 13. We do not knowingly collect personal information from children under 13. If you believe a child under 13 has provided us with personal information, contact <a href="mailto:dangit.app@gmail.com">dangit.app@gmail.com</a> and we will delete it promptly.</p>
+    </div>
+
+    <div class="policy-section" id="rights">
+      <h2><span class="sec-num">10</span> Your Rights</h2>
+      <p>Depending on your location, you may have rights including the right to access, correct, delete, or export your personal data, and the right to withdraw consent at any time. To exercise any of these rights, contact <a href="mailto:dangit.app@gmail.com">dangit.app@gmail.com</a>. We will respond within 30 days.</p>
+    </div>
+
+    <div class="policy-section" id="changes">
+      <h2><span class="sec-num">11</span> Changes to This Policy</h2>
+      <p>We may update this Privacy Policy from time to time. When we do, we will update the date at the top of this page. For significant changes, we will notify users via email or a notice within the extension. Continued use of DANGIT after changes are posted constitutes acceptance of the updated policy.</p>
+      <p>This policy is governed by the laws of India. Disputes shall be subject to the jurisdiction of the courts of Hyderabad, Telangana, India.</p>
+    </div>
+
+    <div class="contact-card" id="contact">
+      <div class="contact-label">Get in touch</div>
+      <h3>Questions or concerns?</h3>
+      <p>We take privacy seriously and respond to all enquiries promptly — usually within 24 hours.</p>
+      <p>Email: <a href="mailto:dangit.app@gmail.com">dangit.app@gmail.com</a></p>
+      <p>Website: <a href="https://trydangit.in" target="_blank" rel="noopener">trydangit.in</a></p>
+    </div>
+
+  </article>
+</div>
+
+<footer>
+  <span class="footer-brand">DANGIT</span>
+  <div class="footer-links">
+    <a href="mailto:dangit.app@gmail.com" class="footer-link">Contact</a>
+    <a href="/privacy" class="footer-link">Privacy</a>
+    <a href="#" class="footer-link">Chrome Store</a>
+  </div>
+  <span class="footer-copy">© 2026 DANGIT</span>
+</footer>
+
+</body>
+</html>

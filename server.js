@@ -5,7 +5,7 @@ const path = require("node:path");
 const { handleSubscribe } = require("./subscribe");
 
 const root = __dirname;
-const port = Number(process.env.PORT) || 3000;
+const port = Number(process.env.PORT) || 3001;
 
 const mimeTypes = {
   ".html": "text/html; charset=utf-8",
@@ -74,6 +74,7 @@ const server = http.createServer(async (req, res) => {
 
   let pathname = url.pathname;
   if (pathname === "/") pathname = "/index.html";
+  if (pathname === "/privacy" || pathname === "/privacy/") pathname = "/privacy_policy.html";
 
   const filePath = path.join(root, pathname);
   if (!filePath.startsWith(root)) {
