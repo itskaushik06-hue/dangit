@@ -4,15 +4,6 @@ const fsPromises = require("node:fs/promises");
 const path = require("node:path");
 const { handleSubscribe } = require("./subscribe");
 
-console.log("========== DANGIT DEBUG ==========");
-console.log("ROOT:", __dirname);
-
-try {
-  console.log("FILES:", fs.readdirSync(__dirname));
-} catch (err) {
-  console.error("FAILED TO READ ROOT:", err);
-}
-
 const root = __dirname;
 const port = Number(process.env.PORT) || 3001;
 
@@ -38,14 +29,11 @@ async function serveFile(res, filePath) {
     const data = await fsPromises.readFile(filePath);
     const ext = path.extname(filePath).toLowerCase();
 
-    console.log("SERVING:", filePath);
-
     send(res, 200, data, {
       "content-type":
         mimeTypes[ext] || "application/octet-stream",
     });
-  } catch (err) {
-    console.error("READ ERROR:", filePath, err);
+  } catch {
     send(res, 404, "Not found", {
       "content-type": "text/plain; charset=utf-8",
     });
@@ -80,8 +68,6 @@ async function readJsonBody(req) {
 const server = http.createServer(async (req, res) => {
   const url = new URL(req.url, `http://${req.headers.host}`);
 
-  console.log("REQUEST:", url.pathname);
-
   if (url.pathname === "/api/subscribe" && req.method === "POST") {
     try {
       const body = await readJsonBody(req);
@@ -102,7 +88,7 @@ const server = http.createServer(async (req, res) => {
         error.statusCode || 500,
         JSON.stringify({
           ok: false,
-          error: error.message,
+          error: error.message || "Something went wrong",
         }),
         {
           "content-type":
@@ -129,8 +115,12 @@ const server = http.createServer(async (req, res) => {
 
   const filePath = path.join(root, pathname);
 
-  console.log("LOOKING FOR:", filePath);
-  console.log("EXISTS:", fs.existsSync(filePath));
+  if (!filePath.startsWith(root)) {
+    send(res, 400, "Bad request", {
+      "content-type": "text/plain; charset=utf-8",
+    });
+    return;
+  }
 
   if (
     fs.existsSync(filePath) &&
@@ -140,19 +130,11 @@ const server = http.createServer(async (req, res) => {
     return;
   }
 
-  send(
-    res,
-    404,
-    `Not found: ${pathname}`,
-    {
-      "content-type":
-        "text/plain; charset=utf-8",
-    }
-  );
+  send(res, 404, "Not found", {
+    "content-type": "text/plain; charset=utf-8",
+  });
 });
 
 server.listen(port, () => {
-  console.log(
-    `DANGIT running at http://localhost:${port}`
-  );
+  console.log(`DANGIT running at http://localhost:${port}`);
 });
