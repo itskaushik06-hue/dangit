@@ -108,13 +108,14 @@ nav {
   text-decoration: none;
 }
 
-.nav-icon {
-  width: 30px; height: 30px;
+.brand-mark {
+  width: 30px;
+  height: 30px;
   border-radius: 7px;
-  background: var(--grad);
-  display: grid;
-  place-items: center;
+  object-fit: cover;
   flex-shrink: 0;
+  display: block;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, .12);
 }
 
 .nav-wordmark {
@@ -1060,13 +1061,8 @@ footer {
 <div class="cursor" id="cur"></div>
 
 <nav>
-  <a href="#" class="nav-brand">
-    <div class="nav-icon">
-      <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
-        <path d="M3 8h10M8 3v10" stroke="white" stroke-width="2" stroke-linecap="round"/>
-        <circle cx="8" cy="8" r="2.5" fill="white"/>
-      </svg>
-    </div>
+  <a href="/" class="nav-brand" aria-label="DANGIT home">
+    <img src="/logo.png" alt="" class="brand-mark">
     <span class="nav-wordmark">DANGIT</span>
   </a>
   <div class="nav-right">
@@ -1352,7 +1348,10 @@ footer {
 </div>
 
 <footer>
-  <span class="footer-brand">DANGIT</span>
+  <a href="/" class="nav-brand" aria-label="DANGIT home">
+    <img src="/logo.png" alt="" class="brand-mark">
+    <span class="footer-brand">DANGIT</span>
+  </a>
   <div class="footer-links">
     <a href="mailto:itskaushik06@gmail.com" class="footer-link">Contact</a>
     <a href="/privacy" class="footer-link">Privacy</a>
