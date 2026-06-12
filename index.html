@@ -956,6 +956,10 @@ nav {
   font-weight: 700;
   font-size: 14px;
   white-space: nowrap;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;
   transition: opacity .2s, transform .2s;
   box-shadow: 0 8px 28px rgba(232,25,75,.28);
   flex-shrink: 0;
@@ -1068,7 +1072,7 @@ footer {
   <div class="nav-right">
     <a href="#how" class="nav-link">How it works</a>
     <a href="#access" class="nav-link">Research</a>
-    <a href="#access" class="nav-btn">
+    <a href="https://chromewebstore.google.com/detail/dphhfmmegdonkkfhdaedjifpahmljjbk?utm_source=item-share-cb" class="nav-btn" target="_blank" rel="noopener">
       Add to Chrome
       <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
     </a>
@@ -1093,11 +1097,11 @@ footer {
         Long AI conversations drift. The model forgets constraints you set, decisions you made, context that matters. <strong>DANGIT lives inside your chat</strong> - save fragments, add notes and tasks, push a smart context summary back when things go sideways.
       </p>
       <div class="hero-cta">
-        <a href="#access" class="btn-primary">
+        <a href="https://chromewebstore.google.com/detail/dphhfmmegdonkkfhdaedjifpahmljjbk?utm_source=item-share-cb" class="btn-primary" target="_blank" rel="noopener">
           <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>
-          Add to Chrome - Free
+          Add to Chrome
         </a>
-        <span class="btn-note">No signup needed to get started</span>
+        <span class="btn-note">Live on the Chrome Web Store</span>
       </div>
     </div>
   </div>
@@ -1336,14 +1340,11 @@ footer {
 <div class="email-wrap">
   <div class="email-bg">D!</div>
   <div class="email-inner reveal">
-    <div class="email-pre">Early Access</div>
-    <h2 class="email-title">Stop losing<br>your <em>best work.</em></h2>
-    <p class="email-sub">Free forever for early users. Get the Chrome extension and be first when new features ship.</p>
-    <form class="email-form" id="emailForm">
-      <input type="email" class="email-input" id="emailInput" placeholder="your@email.com" required>
-      <button type="submit" class="email-btn" id="emailBtn">Get Early Access</button>
-    </form>
-    <p class="email-fine" id="emailNote">No spam. One-click unsubscribe.</p>
+    <div class="email-pre">Install now</div>
+    <h2 class="email-title">Ready to go.<br>Get the <em>Chrome extension.</em></h2>
+    <p class="email-sub">DANGIT is live on the Chrome Web Store. Install it in one click and start saving context right away.</p>
+    <a href="https://chromewebstore.google.com/detail/dphhfmmegdonkkfhdaedjifpahmljjbk?utm_source=item-share-cb" class="email-btn" target="_blank" rel="noopener">Add to Chrome</a>
+    <p class="email-fine">No waitlist. No signup.</p>
   </div>
 </div>
 
@@ -1355,7 +1356,7 @@ footer {
   <div class="footer-links">
     <a href="mailto:itskaushik06@gmail.com" class="footer-link">Contact</a>
     <a href="/privacy" class="footer-link">Privacy</a>
-    <a href="#" class="footer-link">Chrome Store</a>
+    <a href="https://chromewebstore.google.com/detail/dphhfmmegdonkkfhdaedjifpahmljjbk?utm_source=item-share-cb" class="footer-link" target="_blank" rel="noopener">Chrome Store</a>
   </div>
   <span class="footer-copy">© 2026 DANGIT</span>
 </footer>
@@ -1377,44 +1378,6 @@ const io = new IntersectionObserver(entries => {
   entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('in'); });
 }, { threshold: 0.1 });
 document.querySelectorAll('.reveal').forEach(el => io.observe(el));
-
-const emailForm = document.getElementById('emailForm');
-if (emailForm) {
-  emailForm.addEventListener('submit', async (e) => {
-    e.preventDefault();
-    const input = document.getElementById('emailInput');
-    const btn = document.getElementById('emailBtn');
-    const note = document.getElementById('emailNote');
-    const email = input.value.trim();
-
-    btn.disabled = true;
-    btn.textContent = 'Saving...';
-    note.textContent = 'Adding you to the list...';
-    note.style.color = '#7A7060';
-
-    try {
-      const response = await fetch('/api/subscribe', {
-        method: 'POST',
-        headers: { 'content-type': 'application/json' },
-        body: JSON.stringify({ email }),
-      });
-
-      const data = await response.json();
-      if (!response.ok || !data.ok) {
-        throw new Error(data.error || 'Unable to save email.');
-      }
-
-      btn.textContent = "You're in!";
-      note.textContent = 'Welcome aboard, ' + data.email.split('@')[0] + '. We\'ll be in touch.';
-      note.style.color = '#4ADE80';
-    } catch (error) {
-      btn.disabled = false;
-      btn.textContent = 'Get Early Access';
-      note.textContent = error.message || 'Something went wrong. Please try again.';
-      note.style.color = '#E8194B';
-    }
-  });
-}
 </script>
 </body>
 </html>
